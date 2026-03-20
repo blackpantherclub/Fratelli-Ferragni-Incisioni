@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fratelli Terragni Incisioni — Shop</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .shop-filters { display: flex; gap: 0.6rem; flex-wrap: wrap; padding: 2rem 3rem 0; }
+    .filter-btn { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; border: 1px solid rgba(201,168,76,0.25); color: var(--warm-mid); background: transparent; padding: 0.5rem 1.2rem; cursor: pointer; transition: all 0.25s; font-family: 'Jost', sans-serif; }
+    .filter-btn:hover, .filter-btn.active { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+    .shop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 2px; background: rgba(201,168,76,0.07); padding: 2px; margin: 2rem 3rem 0; }
+    .shop-card { background: var(--ink); display: flex; flex-direction: column; transition: background 0.3s; position: relative; overflow: hidden; }
+    .shop-card:hover { background: var(--dark2); }
+    .shop-card:hover .shop-add-btn { opacity: 1; transform: translateY(0); }
+    .shop-card-img-wrap { aspect-ratio: 1 / 1; background: var(--charcoal); display: flex; align-items: center; justify-content: center; }
+    .shop-card-icon { font-size: 5rem; filter: drop-shadow(0 8px 24px rgba(0,0,0,0.7)); transition: transform 0.4s; }
+    .shop-card:hover .shop-card-icon { transform: scale(1.08) rotate(-3deg); }
+    .shop-card-body { padding: 1.8rem 2rem; display: flex; flex-direction: column; gap: 0.7rem; flex: 1; }
+    .shop-card-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .shop-card-name { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; color: var(--cream); line-height: 1.3; }
+    .shop-card-desc { font-size: 0.8rem; line-height: 1.8; color: var(--warm-mid); opacity: 0.75; }
+    .shop-card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 1rem; border-top: 1px solid rgba(201,168,76,0.1); }
+    .shop-price { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--gold-light); }
+    .shop-price-from { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 0.1rem; font-family: 'Jost', sans-serif; }
+    .shop-delivery { font-size: 0.68rem; color: var(--warm-mid); opacity: 0.5; letter-spacing: 0.08em; }
+    .shop-add-btn { display: block; width: 100%; background: var(--gold); color: var(--ink); border: none; padding: 1rem; font-family: 'Jost', sans-serif; font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; font-weight: 500; opacity: 0; transform: translateY(6px); transition: opacity 0.3s, transform 0.3s, background 0.2s; }
+    .shop-add-btn:hover { background: var(--gold-light); }
+    .shop-loading { grid-column: 1/-1; text-align: center; padding: 5rem 2rem; color: var(--gold); font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; }
+    .shop-empty { grid-column: 1/-1; text-align: center; padding: 5rem 2rem; color: var(--warm-mid); opacity: 0.5; font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; }
+    .smodal-overlay { display: none; position: fixed; inset: 0; background: rgba(10,7,2,0.94); z-index: 800; place-items: center; padding: 2rem; }
+    .smodal-overlay.open { display: grid; }
+    .smodal { background: var(--charcoal); border: 1px solid rgba(201,168,76,0.25); max-width: 600px; width: 100%; padding: 3rem; position: relative; animation: fadeUp 0.3s ease; max-height: 92vh; overflow-y: auto; }
+    .smodal-close { position: absolute; top: 1.2rem; right: 1.5rem; background: none; border: none; color: var(--warm-mid); font-size: 1.4rem; cursor: pointer; opacity: 0.5; transition: opacity 0.2s; }
+    .smodal-close:hover { opacity: 1; }
+    .smodal-header { display: flex; gap: 1.5rem; align-items: flex-start; margin-bottom: 2rem; }
+    .smodal-icon { font-size: 3.5rem; flex-shrink: 0; }
+    .smodal-name { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: var(--gold-light); line-height: 1.2; }
+    .smodal-price-line { margin-top: 0.4rem; font-size: 0.8rem; color: var(--gold); letter-spacing: 0.1em; }
+    .smodal-section-title { font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; display: block; }
+    .smodal-options { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+    .smodal-opt { font-size: 0.75rem; letter-spacing: 0.1em; border: 1px solid rgba(201,168,76,0.22); color: var(--warm-mid); background: transparent; padding: 0.45rem 1rem; cursor: pointer; transition: all 0.2s; font-family: 'Jost', sans-serif; }
+    .smodal-opt:hover, .smodal-opt.selected { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+    .smodal-submit { width: 100%; margin-top: 1rem; }
+    .smodal-note { font-size: 0.72rem; color: var(--warm-mid); opacity: 0.5; text-align: center; margin-top: 0.8rem; }
+
+    /* ══ INCISIONE SELECTOR ══ */
+    .incisione-opts { display: flex; gap: 0.6rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .inc-opt {
+      flex: 1; min-width: 90px; background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(201,168,76,0.2); color: var(--warm-mid);
+      padding: 1rem 0.5rem; cursor: pointer; font-family: 'Jost', sans-serif;
+      font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      transition: all 0.25s; text-align: center; line-height: 1.4;
+    }
+    .inc-opt:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.05); }
+    .inc-opt.active { border-color: var(--gold); background: rgba(201,168,76,0.1); color: var(--gold-light); }
+    .inc-icon { font-size: 1.6rem; }
+    .inc-label { font-size: 0.65rem; }
+
+    /* ══ FILE DROP ══ */
+    .file-drop {
+      border: 1px dashed rgba(201,168,76,0.35); background: rgba(255,255,255,0.02);
+      padding: 2rem 1.5rem; text-align: center; cursor: pointer;
+      transition: all 0.25s;
+    }
+    .file-drop:hover { border-color: var(--gold); background: rgba(201,168,76,0.05); }
+    .file-drop.has-file { border-color: var(--gold); border-style: solid; background: rgba(201,168,76,0.07); }
+    .file-drop-icon { font-size: 1.8rem; margin-bottom: 0.5rem; }
+    .file-drop-text { font-size: 0.82rem; color: var(--cream); margin-bottom: 0.3rem; }
+    .file-drop-sub { font-size: 0.68rem; color: var(--warm-mid); opacity: 0.5; letter-spacing: 0.08em; }
+    .file-drop-name { font-size: 0.78rem; color: var(--gold); margin-top: 0.6rem; font-weight: 500; }
+    .form-hint-gold { font-size: 0.68rem; color: var(--gold); opacity: 0.6; margin-top: 0.4rem; letter-spacing: 0.05em; }
+
+    /* ══ ENTRAMBI BANNER ══ */
+    .entrambi-banner {
+      display: flex; justify-content: space-between;
+      border: 1px solid rgba(201,168,76,0.2); background: rgba(201,168,76,0.04);
+      padding: 0.6rem 1rem; margin-bottom: 1.2rem;
+    }
+    .entrambi-side { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); }
+    @media (max-width: 900px) { .shop-add-btn { opacity: 1; transform: translateY(0); } .shop-grid { margin: 2rem 1.5rem 0; } .shop-filters { padding: 2rem 1.5rem 0; } }
+  </style>
+</head>
+<body data-page="shop">
+  <nav>
+    <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="Fratelli Terragni Incisioni"></a>
+    <ul class="nav-links">
+      <li><a href="index.html" data-p="home">Home</a></li>
+      <li><a href="shop.html" data-p="shop">Shop</a></li>
+      <li><a href="prodotti.html" data-p="prodotti">Prodotti</a></li>
+      <li><a href="materiali.html" data-p="materiali">Materiali</a></li>
+      <li><a href="come-funziona.html" data-p="come-funziona">Come funziona</a></li>
+      <li><a href="galleria.html" data-p="galleria">Galleria</a></li>
+      <li><a href="contatti.html" data-p="contatti">Contatti</a></li>
+      <li><a class="nav-cta" onclick="openModal()">Ordina ora</a></li>
+    </ul>
+    <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="mobile-menu" id="mobMenu">
+    <a href="index.html" data-p="home">Home</a>
+    <a href="shop.html" data-p="shop">Shop</a>
+    <a href="prodotti.html" data-p="prodotti">Prodotti</a>
+    <a href="materiali.html" data-p="materiali">Materiali</a>
+    <a href="come-funziona.html" data-p="come-funziona">Come funziona</a>
+    <a href="galleria.html" data-p="galleria">Galleria</a>
+    <a href="contatti.html" data-p="contatti">Contatti</a>
+    <a onclick="openModal();toggleMenu()" style="color:var(--gold)">✦ Ordina ora</a>
+  </div>
+  <div class="page-content">
+    <div class="page-header">
+      <span class="sec-label">✦ Shop online</span>
+      <h1 class="sec-title">Ordina il tuo <em class="gold-i">Pezzo Unico</em></h1>
+      <p class="sec-body">Scegli il prodotto, il materiale e il testo. Ti contatteremo entro 24h con bozza e conferma d'ordine.</p>
+    </div>
+    <div class="shop-filters" id="filterBar">
+      <button class="filter-btn active" onclick="filterShop('tutti', this)">Tutti</button>
+      <button class="filter-btn" onclick="filterShop('animali', this)">Animali</button>
+      <button class="filter-btn" onclick="filterShop('memorial', this)">Memorial</button>
+      <button class="filter-btn" onclick="filterShop('sport', this)">Sport & Premi</button>
+      <button class="filter-btn" onclick="filterShop('regalo', this)">Regalo</button>
+      <button class="filter-btn" onclick="filterShop('business', this)">Business</button>
+      <button class="filter-btn" onclick="filterShop('gioielli', this)">Gioielli</button>
+    </div>
+    <div class="shop-grid" id="shopGrid">
+      <div class="shop-loading">✦ Caricamento prodotti…</div>
+    </div>
+    <section class="wrap" style="text-align:center;">
+      <span class="sec-label">✦ Non trovi quello che cerchi?</span>
+      <h2 class="sec-title">Realizziamo qualsiasi <em class="gold-i">incisione</em></h2>
+      <p class="sec-body" style="margin:0 auto 2.5rem;">Scrivici e troviamo insieme la soluzione perfetta per te.</p>
+      <div class="btn-row" style="justify-content:center;">
+        <a class="btn-g" href="mailto:incisioni-fratelli-terragni@proton.me">Scrivici via email</a>
+        <a class="btn-o" href="contatti.html">Vai ai contatti →</a>
+      </div>
+    </section>
+    <footer>
+      <div class="fg">
+        <div><div class="fb">Fratelli Terragni<br>Incisioni</div><p class="ft">Incisioni laser su misura su legno, acciaio inox e pelle.</p></div>
+        <div><p class="fc-title">Pagine</p><ul class="fl"><li><a href="index.html">Home</a></li><li><a href="shop.html">Shop</a></li><li><a href="prodotti.html">Prodotti</a></li><li><a href="materiali.html">Materiali</a></li><li><a href="come-funziona.html">Come funziona</a></li><li><a href="galleria.html">Galleria</a></li></ul></div>
+        <div><p class="fc-title">Contatti</p><ul class="fl"><li><a href="mailto:incisioni-fratelli-terragni@proton.me">incisioni-fratelli-terragni@proton.me</a></li></ul></div>
+        <div><p class="fc-title">Seguici</p><div class="sr" style="margin-top:0.5rem"><div class="sb">📸</div><div class="sb">📘</div></div></div>
+      </div>
+      <div class="fb-bottom"><p class="fc">© 2025 Fratelli Terragni Incisioni · Tutti i diritti riservati</p></div>
+    </footer>
+  </div>
+
+  <!-- SHOP MODAL -->
+  <div class="smodal-overlay" id="shopModal">
+    <div class="smodal">
+      <button class="smodal-close" onclick="closeShopModal()">✕</button>
+      <div id="sModalContent">
+        <div class="smodal-header">
+          <div class="smodal-icon" id="sIcon"></div>
+          <div><div class="smodal-name" id="sName"></div><div class="smodal-price-line" id="sPrice"></div></div>
+        </div>
+        <span class="smodal-section-title">Forma</span>
+        <div class="smodal-options" id="sShapes"></div>
+        <span class="smodal-section-title">Materiale</span>
+        <div class="smodal-options" id="sMaterials"></div>
+        <!-- TIPO INCISIONE -->
+        <span class="smodal-section-title">Cosa vuoi incidere?</span>
+        <div class="incisione-opts">
+          <button class="inc-opt active" onclick="setIncisione('scritta', this)">
+            <span class="inc-icon">✍️</span>
+            <span class="inc-label">Solo scritta</span>
+          </button>
+          <button class="inc-opt" onclick="setIncisione('immagine', this)">
+            <span class="inc-icon">🖼️</span>
+            <span class="inc-label">Solo immagine</span>
+          </button>
+          <button class="inc-opt" onclick="setIncisione('entrambi', this)">
+            <span class="inc-icon">✍️+🖼️</span>
+            <span class="inc-label">Immagine davanti<br>scritta dietro</span>
+          </button>
+        </div>
+
+        <!-- CAMPO SCRITTA -->
+        <div id="campoScritta" class="form-group">
+          <label class="form-label">Testo da incidere *</label>
+          <textarea class="form-textarea" id="sText" placeholder="Es: Luna · ☎ 333 123 4567" style="min-height:80px;"></textarea>
+          <div class="form-hint-gold">Scrivi esattamente come vuoi che appaia sull'incisione.</div>
+        </div>
+
+        <!-- CAMPO IMMAGINE -->
+        <div id="campoImmagine" class="form-group" style="display:none;">
+          <label class="form-label">Carica la tua immagine *</label>
+          <div class="file-drop" id="fileDrop" onclick="document.getElementById('sFile').click()">
+            <div class="file-drop-icon">📎</div>
+            <div class="file-drop-text">Clicca per caricare o trascina qui</div>
+            <div class="file-drop-sub">PNG, JPG, SVG, PDF · Max 10MB</div>
+            <div class="file-drop-name" id="fileName" style="display:none;"></div>
+          </div>
+          <input type="file" id="sFile" accept=".png,.jpg,.jpeg,.svg,.pdf" style="display:none;" onchange="onFileSelected(this)">
+          <div class="form-hint-gold">Usa immagini ad alta risoluzione per risultati ottimali.</div>
+        </div>
+
+        <!-- CAMPO ENTRAMBI -->
+        <div id="campoEntrambi" style="display:none;">
+          <div class="entrambi-banner">
+            <span class="entrambi-side">▲ Fronte — Immagine</span>
+            <span class="entrambi-side">▼ Retro — Scritta</span>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Immagine (fronte) *</label>
+            <div class="file-drop" id="fileDropB" onclick="document.getElementById('sFileB').click()">
+              <div class="file-drop-icon">📎</div>
+              <div class="file-drop-text">Clicca per caricare o trascina qui</div>
+              <div class="file-drop-sub">PNG, JPG, SVG, PDF · Max 10MB</div>
+              <div class="file-drop-name" id="fileNameB" style="display:none;"></div>
+            </div>
+            <input type="file" id="sFileB" accept=".png,.jpg,.jpeg,.svg,.pdf" style="display:none;" onchange="onFileSelectedB(this)">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Testo (retro) *</label>
+            <textarea class="form-textarea" id="sTextB" placeholder="Es: Con tutto il mio amore · 2024" style="min-height:80px;"></textarea>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Il tuo nome *</label><input type="text" class="form-input" id="sClientName" placeholder="Nome e cognome"></div>
+          <div class="form-group"><label class="form-label">La tua email *</label><input type="email" class="form-input" id="sClientEmail" placeholder="tua@email.it"></div>
+        </div>
+        <div class="form-group"><label class="form-label">Note aggiuntive</label><input type="text" class="form-input" id="sNotes" placeholder="Quantità, richieste speciali…"></div>
+        <button class="btn-g smodal-submit" onclick="submitShopOrder()">Invia ordine →</button>
+        <p class="smodal-note">Ti risponderemo entro 24h con conferma e preventivo definitivo.</p>
+      </div>
+      <div class="success-box" id="sSuccess">
+        <div class="success-icon">✦</div>
+        <div class="success-title">Ordine ricevuto!</div>
+        <p class="success-body">Grazie! Ti contatteremo entro 24 ore con la bozza e il preventivo.<br>Controlla anche la cartella spam 🙂</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL PREVENTIVO -->
+  <div class="modal-overlay" id="orderModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div id="mFormWrap">
+        <div class="modal-title">Richiedi un preventivo</div>
+        <p class="modal-sub">Compila il modulo — ti risponderemo entro 24 ore</p>
+        <div class="form-row"><div class="form-group"><label class="form-label">Nome *</label><input type="text" class="form-input" placeholder="Il tuo nome"></div><div class="form-group"><label class="form-label">Email *</label><input type="email" class="form-input" placeholder="tua@email.it"></div></div>
+        <div class="form-group"><label class="form-label">Tipo di prodotto</label><select class="form-select"><option>Medaglione per animali</option><option>Medaglia commemorativa</option><option>Ciondolo personalizzato</option><option>Targa per oggetti</option><option>Regalo personalizzato</option><option>Fornitura aziendale</option><option>Altro</option></select></div>
+        <div class="form-group"><label class="form-label">Testo / descrizione</label><textarea class="form-textarea" placeholder="Es: «Luna · ☎ 333 123 4567»..."></textarea></div>
+        <div class="form-row"><div class="form-group"><label class="form-label">Materiale</label><select class="form-select"><option>Legno</option><option>Acciaio inox</option><option>Pelle</option><option>Consigliami tu</option></select></div><div class="form-group"><label class="form-label">Quantità</label><input type="number" class="form-input" placeholder="1" min="1"></div></div>
+        <button class="btn-g" style="width:100%;margin-top:0.5rem;" onclick="submitModal()">Invia richiesta →</button>
+      </div>
+      <div class="success-box" id="mSuccess"><div class="success-icon">✦</div><div class="success-title">Richiesta inviata!</div><p class="success-body">Grazie! Ti risponderemo entro 24 ore con il tuo preventivo.</p></div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script>
+    const SUPABASE_URL = 'https://kcimyovwowzupssxapyl.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_stH8TiPTw5Xfq9NC0t869w_KLdHBGeE';
+
+    let allProducts = [];
+    let currentFilter = 'tutti';
+
+    async function loadProducts() {
+      try {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/prodotti?select=*&attivo=eq.true&order=id.asc`, {
+          headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+        });
+        if (!res.ok) throw new Error();
+        allProducts = await res.json();
+        renderProducts();
+      } catch {
+        document.getElementById('shopGrid').innerHTML = '<div class="shop-empty">Impossibile caricare i prodotti. Riprova più tardi.</div>';
+      }
+    }
+
+    function renderProducts() {
+      const grid = document.getElementById('shopGrid');
+      const filtered = currentFilter === 'tutti' ? allProducts : allProducts.filter(p => p.categoria === currentFilter);
+      if (filtered.length === 0) { grid.innerHTML = '<div class="shop-empty">Nessun prodotto in questa categoria.</div>'; return; }
+      grid.innerHTML = filtered.map(p => {
+        const forme = p.forme ? p.forme.split(',').map(s => s.trim()) : [];
+        const materiali = p.materiali ? p.materiali.split(',').map(s => s.trim()) : [];
+        return `<div class="shop-card" data-cat="${p.categoria}">
+          <div class="shop-card-img-wrap"><div class="shop-card-icon">${p.icona || '✦'}</div></div>
+          <div class="shop-card-body">
+            <div class="shop-card-tags"><span class="tag">${p.categoria}</span></div>
+            <div class="shop-card-name">${p.nome}</div>
+            <p class="shop-card-desc">${p.descrizione}</p>
+            <div class="shop-card-footer">
+              <div><span class="shop-price-from">A partire da</span><span class="shop-price">${p.prezzo}</span><div class="shop-delivery">${p.consegna}</div></div>
+            </div>
+          </div>
+          <button class="shop-add-btn" onclick='openShopModal(${JSON.stringify(p.nome)},${JSON.stringify(p.prezzo)},${JSON.stringify(p.icona||"✦")},${JSON.stringify(forme)},${JSON.stringify(materiali)})'>Personalizza &amp; Ordina →</button>
+        </div>`;
+      }).join('');
+    }
+
+    function filterShop(cat, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentFilter = cat;
+      renderProducts();
+    }
+
+    let selectedShape = '', selectedMaterial = '';
+    function openShopModal(name, price, icon, shapes, materials) {
+      selectedShape = shapes[0]||''; selectedMaterial = materials[0]||'';
+      document.getElementById('sIcon').textContent = icon;
+      document.getElementById('sName').textContent = name;
+      document.getElementById('sPrice').textContent = price;
+      document.getElementById('sShapes').innerHTML = shapes.map((s,i) => `<button class="smodal-opt${i===0?' selected':''}" onclick="selectOpt(this,'shape','${s}')">${s}</button>`).join('');
+      document.getElementById('sMaterials').innerHTML = materials.map((m,i) => `<button class="smodal-opt${i===0?' selected':''}" onclick="selectOpt(this,'material','${m}')">${m}</button>`).join('');
+      // Reset fields
+      ['sText','sTextB','sClientName','sClientEmail','sNotes'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+      document.getElementById('sFile').value='';
+      document.getElementById('sFileB').value='';
+      document.getElementById('fileName').style.display='none';
+      document.getElementById('fileNameB').style.display='none';
+      document.getElementById('fileDrop').classList.remove('has-file');
+      document.getElementById('fileDropB').classList.remove('has-file');
+      // Reset incisione to scritta
+      setIncisione('scritta', document.querySelector('.inc-opt'));
+      document.querySelectorAll('.inc-opt').forEach(b=>b.classList.remove('active'));
+      document.querySelector('.inc-opt').classList.add('active');
+      document.getElementById('sSuccess').style.display='none';
+      document.getElementById('sModalContent').style.display='';
+      document.getElementById('shopModal').classList.add('open');
+    }
+    function selectOpt(el,type,val) {
+      el.closest('.smodal-options').querySelectorAll('.smodal-opt').forEach(b=>b.classList.remove('selected'));
+      el.classList.add('selected');
+      if(type==='shape') selectedShape=val; else selectedMaterial=val;
+    }
+    function closeShopModal() { document.getElementById('shopModal').classList.remove('open'); }
+
+    // ══ INCISIONE LOGIC ══
+    let tipoIncisione = 'scritta';
+    function setIncisione(tipo, btn) {
+      tipoIncisione = tipo;
+      document.querySelectorAll('.inc-opt').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('campoScritta').style.display  = (tipo==='scritta')  ? '' : 'none';
+      document.getElementById('campoImmagine').style.display = (tipo==='immagine') ? '' : 'none';
+      document.getElementById('campoEntrambi').style.display = (tipo==='entrambi') ? '' : 'none';
+    }
+
+    // ══ FILE UPLOAD ══
+    function onFileSelected(input) {
+      if (input.files[0]) {
+        document.getElementById('fileName').textContent = '✦ ' + input.files[0].name;
+        document.getElementById('fileName').style.display = 'block';
+        document.getElementById('fileDrop').classList.add('has-file');
+      }
+    }
+    function onFileSelectedB(input) {
+      if (input.files[0]) {
+        document.getElementById('fileNameB').textContent = '✦ ' + input.files[0].name;
+        document.getElementById('fileNameB').style.display = 'block';
+        document.getElementById('fileDropB').classList.add('has-file');
+      }
+    }
+
+    // Drag & drop
+    ['fileDrop','fileDropB'].forEach(id => {
+      const el = document.getElementById(id);
+      el.addEventListener('dragover', e => { e.preventDefault(); el.style.borderColor='var(--gold-light)'; });
+      el.addEventListener('dragleave', () => { el.style.borderColor=''; });
+      el.addEventListener('drop', e => {
+        e.preventDefault(); el.style.borderColor='';
+        const fileInput = document.getElementById(id==='fileDrop'?'sFile':'sFileB');
+        fileInput.files = e.dataTransfer.files;
+        fileInput.dispatchEvent(new Event('change'));
+      });
+    });
+
+    function submitShopOrder() {
+      const nome  = document.getElementById('sClientName').value.trim();
+      const email = document.getElementById('sClientEmail').value.trim();
+      if (!nome || !email) { alert('Per favore inserisci nome ed email.'); return; }
+
+      if (tipoIncisione === 'scritta' && !document.getElementById('sText').value.trim()) {
+        alert('Inserisci il testo da incidere.'); return;
+      }
+      if (tipoIncisione === 'immagine' && !document.getElementById('sFile').files[0]) {
+        alert('Carica l'immagine da incidere.'); return;
+      }
+      if (tipoIncisione === 'entrambi') {
+        if (!document.getElementById('sFileB').files[0]) { alert('Carica l'immagine per il fronte.'); return; }
+        if (!document.getElementById('sTextB').value.trim()) { alert('Inserisci il testo per il retro.'); return; }
+      }
+      document.getElementById('sModalContent').style.display='none';
+      document.getElementById('sSuccess').style.display='block';
+    }
+    document.getElementById('shopModal').addEventListener('click',function(e){if(e.target===this)closeShopModal();});
+    loadProducts();
+  </script>
+</body>
+</html>

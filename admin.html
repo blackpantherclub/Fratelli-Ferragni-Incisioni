@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Fratelli Terragni</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #C9A84C; --gold-light: #E8C96A; --ink: #1A1208;
+      --cream: #FAF6EE; --warm-mid: #E8DFC8; --charcoal: #2E2416; --dark2: #231a0e;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--ink); color: var(--cream); font-family: 'Jost', sans-serif; font-weight: 300; min-height: 100vh; }
+
+    /* LOGIN */
+    #loginScreen {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      background: radial-gradient(ellipse at center, #2E2416, var(--ink) 70%);
+    }
+    .login-box {
+      background: var(--charcoal); border: 1px solid rgba(201,168,76,0.25);
+      padding: 3rem; width: 100%; max-width: 380px; text-align: center;
+    }
+    .login-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--gold); margin-bottom: 0.4rem; }
+    .login-sub { font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--warm-mid); opacity: 0.5; margin-bottom: 2.5rem; }
+    .login-box input { width: 100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(201,168,76,0.18); color: var(--cream); padding: 0.9rem 1rem; font-family: 'Jost', sans-serif; font-size: 0.9rem; outline: none; margin-bottom: 1rem; transition: border-color 0.3s; }
+    .login-box input:focus { border-color: var(--gold); }
+    .login-box button { width: 100%; background: var(--gold); color: var(--ink); border: none; padding: 1rem; font-family: 'Jost', sans-serif; font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; font-weight: 500; transition: background 0.3s; }
+    .login-box button:hover { background: var(--gold-light); }
+    .login-err { color: #e57373; font-size: 0.78rem; margin-top: 0.8rem; display: none; }
+
+    /* ADMIN LAYOUT */
+    #adminPanel { display: none; }
+    .admin-nav {
+      background: rgba(26,18,8,0.97); border-bottom: 1px solid rgba(201,168,76,0.13);
+      padding: 0 2rem; height: 64px; display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .admin-nav-brand { font-family: 'Cormorant Garamond', serif; color: var(--gold); font-size: 1.1rem; }
+    .admin-nav-brand span { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--warm-mid); opacity: 0.5; display: block; }
+    .admin-logout { background: none; border: 1px solid rgba(201,168,76,0.25); color: var(--warm-mid); padding: 0.4rem 1rem; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; font-family: 'Jost', sans-serif; transition: all 0.2s; }
+    .admin-logout:hover { border-color: var(--gold); color: var(--gold); }
+
+    .admin-body { padding: 2rem; max-width: 1200px; margin: 0 auto; }
+    .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
+    .admin-title { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--gold-light); }
+    .btn-add { background: var(--gold); color: var(--ink); border: none; padding: 0.8rem 2rem; font-family: 'Jost', sans-serif; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; font-weight: 500; transition: background 0.3s; }
+    .btn-add:hover { background: var(--gold-light); }
+
+    /* STATS */
+    .admin-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .stat-box { background: var(--charcoal); border: 1px solid rgba(201,168,76,0.12); padding: 1.5rem; }
+    .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; color: var(--gold-light); line-height: 1; }
+    .stat-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--warm-mid); opacity: 0.5; margin-top: 0.4rem; }
+
+    /* TABLE */
+    .admin-table-wrap { background: var(--charcoal); border: 1px solid rgba(201,168,76,0.12); overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; }
+    th { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); padding: 1rem 1.2rem; text-align: left; border-bottom: 1px solid rgba(201,168,76,0.15); font-weight: 400; white-space: nowrap; }
+    td { padding: 1rem 1.2rem; font-size: 0.85rem; color: var(--warm-mid); border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(201,168,76,0.03); }
+    .td-nome { color: var(--cream); font-family: 'Cormorant Garamond', serif; font-size: 1rem; }
+    .td-icona { font-size: 1.6rem; }
+    .td-cat { display: inline-block; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; border: 1px solid rgba(201,168,76,0.25); color: var(--gold); padding: 0.2rem 0.6rem; }
+    .td-attivo { display: inline-block; padding: 0.25rem 0.7rem; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; border-radius: 20px; }
+    .td-attivo.si { background: rgba(76,175,80,0.15); color: #81c784; border: 1px solid rgba(76,175,80,0.3); }
+    .td-attivo.no { background: rgba(229,115,115,0.1); color: #e57373; border: 1px solid rgba(229,115,115,0.2); }
+    .td-actions { display: flex; gap: 0.5rem; }
+    .btn-edit { background: none; border: 1px solid rgba(201,168,76,0.3); color: var(--gold); padding: 0.35rem 0.8rem; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; font-family: 'Jost', sans-serif; transition: all 0.2s; }
+    .btn-edit:hover { background: rgba(201,168,76,0.1); }
+    .btn-del { background: none; border: 1px solid rgba(229,115,115,0.25); color: #e57373; padding: 0.35rem 0.8rem; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; font-family: 'Jost', sans-serif; transition: all 0.2s; }
+    .btn-del:hover { background: rgba(229,115,115,0.1); }
+    .table-loading { text-align: center; padding: 3rem; color: var(--gold); font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; }
+    .table-empty { text-align: center; padding: 3rem; color: var(--warm-mid); opacity: 0.4; font-size: 0.9rem; }
+
+    /* MODAL PRODOTTO */
+    .pmodal-overlay { display: none; position: fixed; inset: 0; background: rgba(10,7,2,0.95); z-index: 900; place-items: center; padding: 1.5rem; }
+    .pmodal-overlay.open { display: grid; }
+    .pmodal { background: var(--charcoal); border: 1px solid rgba(201,168,76,0.25); max-width: 640px; width: 100%; padding: 2.5rem; position: relative; max-height: 95vh; overflow-y: auto; }
+    .pmodal-close { position: absolute; top: 1rem; right: 1.2rem; background: none; border: none; color: var(--warm-mid); font-size: 1.4rem; cursor: pointer; opacity: 0.5; }
+    .pmodal-close:hover { opacity: 1; }
+    .pmodal-title { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--gold-light); margin-bottom: 1.8rem; }
+    .form-group { margin-bottom: 1.2rem; }
+    .form-label { display: block; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+    .form-input, .form-select, .form-textarea { width: 100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(201,168,76,0.18); color: var(--cream); padding: 0.85rem 1rem; font-family: 'Jost', sans-serif; font-size: 0.85rem; outline: none; transition: border-color 0.3s; }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--gold); }
+    .form-select option { background: var(--charcoal); }
+    .form-textarea { resize: vertical; min-height: 90px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-hint { font-size: 0.7rem; color: var(--warm-mid); opacity: 0.45; margin-top: 0.3rem; }
+    .form-check { display: flex; align-items: center; gap: 0.7rem; }
+    .form-check input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--gold); cursor: pointer; }
+    .form-check label { font-size: 0.82rem; color: var(--warm-mid); cursor: pointer; }
+    .pmodal-actions { display: flex; gap: 1rem; margin-top: 1.5rem; }
+    .btn-save { flex: 1; background: var(--gold); color: var(--ink); border: none; padding: 1rem; font-family: 'Jost', sans-serif; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; font-weight: 500; transition: background 0.3s; }
+    .btn-save:hover { background: var(--gold-light); }
+    .btn-cancel { background: none; border: 1px solid rgba(201,168,76,0.2); color: var(--warm-mid); padding: 1rem 1.5rem; font-family: 'Jost', sans-serif; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
+    .btn-cancel:hover { border-color: var(--gold); color: var(--gold); }
+    .pmodal-msg { text-align: center; padding: 0.7rem; font-size: 0.8rem; margin-top: 0.8rem; display: none; border-radius: 2px; }
+    .pmodal-msg.ok { background: rgba(76,175,80,0.12); color: #81c784; border: 1px solid rgba(76,175,80,0.2); }
+    .pmodal-msg.err { background: rgba(229,115,115,0.1); color: #e57373; border: 1px solid rgba(229,115,115,0.2); }
+
+    /* CONFIRM */
+    .confirm-overlay { display: none; position: fixed; inset: 0; background: rgba(10,7,2,0.95); z-index: 1000; place-items: center; }
+    .confirm-overlay.open { display: grid; }
+    .confirm-box { background: var(--charcoal); border: 1px solid rgba(229,115,115,0.3); padding: 2.5rem; max-width: 380px; width: 90%; text-align: center; }
+    .confirm-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: #e57373; margin-bottom: 0.8rem; }
+    .confirm-body { font-size: 0.82rem; color: var(--warm-mid); opacity: 0.7; margin-bottom: 2rem; line-height: 1.7; }
+    .confirm-actions { display: flex; gap: 1rem; justify-content: center; }
+    .btn-confirm-del { background: rgba(229,115,115,0.8); color: white; border: none; padding: 0.8rem 2rem; font-family: 'Jost', sans-serif; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; }
+    .btn-confirm-del:hover { background: #e57373; }
+    .btn-confirm-cancel { background: none; border: 1px solid rgba(201,168,76,0.2); color: var(--warm-mid); padding: 0.8rem 2rem; font-family: 'Jost', sans-serif; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; }
+
+    @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } .admin-body { padding: 1rem; } }
+  </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">Fratelli Terragni</div>
+    <div class="login-sub">Pannello Amministratore</div>
+    <input type="password" id="pwdInput" placeholder="Password" onkeydown="if(event.key==='Enter')doLogin()">
+    <button onclick="doLogin()">Accedi →</button>
+    <div class="login-err" id="loginErr">Password errata. Riprova.</div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div id="adminPanel">
+  <nav class="admin-nav">
+    <div class="admin-nav-brand">Fratelli Terragni <span>Pannello Admin</span></div>
+    <button class="admin-logout" onclick="doLogout()">Esci</button>
+  </nav>
+
+  <div class="admin-body">
+    <div class="admin-header">
+      <div class="admin-title">Gestione Prodotti</div>
+      <button class="btn-add" onclick="openProductModal()">+ Aggiungi prodotto</button>
+    </div>
+
+    <div class="admin-stats">
+      <div class="stat-box"><div class="stat-num" id="statTot">—</div><div class="stat-label">Prodotti totali</div></div>
+      <div class="stat-box"><div class="stat-num" id="statAttivi">—</div><div class="stat-label">Attivi</div></div>
+      <div class="stat-box"><div class="stat-num" id="statInattivi">—</div><div class="stat-label">Nascosti</div></div>
+    </div>
+
+    <div class="admin-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Icona</th>
+            <th>Nome prodotto</th>
+            <th>Categoria</th>
+            <th>Prezzo</th>
+            <th>Consegna</th>
+            <th>Stato</th>
+            <th>Azioni</th>
+          </tr>
+        </thead>
+        <tbody id="productTableBody">
+          <tr><td colspan="7" class="table-loading">✦ Caricamento…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL PRODOTTO -->
+<div class="pmodal-overlay" id="productModal">
+  <div class="pmodal">
+    <button class="pmodal-close" onclick="closeProductModal()">✕</button>
+    <div class="pmodal-title" id="pModalTitle">Nuovo Prodotto</div>
+    <input type="hidden" id="pId">
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Icona (emoji) *</label>
+        <input type="text" class="form-input" id="pIcona" placeholder="🐾">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Categoria *</label>
+        <select class="form-select" id="pCategoria">
+          <option value="animali">Animali</option>
+          <option value="memorial">Memorial</option>
+          <option value="sport">Sport & Premi</option>
+          <option value="regalo">Regalo</option>
+          <option value="business">Business</option>
+          <option value="gioielli">Gioielli</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Nome prodotto *</label>
+      <input type="text" class="form-input" id="pNome" placeholder="Es: Medaglione per Cani & Gatti">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Descrizione *</label>
+      <textarea class="form-textarea" id="pDescrizione" placeholder="Descrivi il prodotto…"></textarea>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Prezzo *</label>
+        <input type="text" class="form-input" id="pPrezzo" placeholder="Es: € 8">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Consegna *</label>
+        <input type="text" class="form-input" id="pConsegna" placeholder="Es: Consegna 3–5 gg">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Forme disponibili</label>
+      <input type="text" class="form-input" id="pForme" placeholder="Es: Rotonda, Ossuta, A cuore">
+      <div class="form-hint">Separa le opzioni con una virgola</div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Materiali disponibili</label>
+      <input type="text" class="form-input" id="pMateriali" placeholder="Es: Legno, Acciaio inox, Pelle">
+      <div class="form-hint">Separa i materiali con una virgola</div>
+    </div>
+
+    <div class="form-group">
+      <div class="form-check">
+        <input type="checkbox" id="pAttivo" checked>
+        <label for="pAttivo">Prodotto visibile nello shop</label>
+      </div>
+    </div>
+
+    <div class="pmodal-actions">
+      <button class="btn-cancel" onclick="closeProductModal()">Annulla</button>
+      <button class="btn-save" onclick="saveProduct()">Salva prodotto →</button>
+    </div>
+    <div class="pmodal-msg" id="pModalMsg"></div>
+  </div>
+</div>
+
+<!-- CONFIRM DELETE -->
+<div class="confirm-overlay" id="confirmModal">
+  <div class="confirm-box">
+    <div class="confirm-title">Eliminare il prodotto?</div>
+    <div class="confirm-body" id="confirmText">Questa azione non può essere annullata.</div>
+    <div class="confirm-actions">
+      <button class="btn-confirm-cancel" onclick="closeConfirm()">Annulla</button>
+      <button class="btn-confirm-del" onclick="confirmDelete()">Elimina</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const SUPABASE_URL = 'https://kcimyovwowzupssxapyl.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_stH8TiPTw5Xfq9NC0t869w_KLdHBGeE';
+  // ⚠️ Cambia questa password con una tua sicura!
+  const ADMIN_PASSWORD = 'terragni2025';
+
+  // ══ LOGIN ══
+  function doLogin() {
+    if (document.getElementById('pwdInput').value === ADMIN_PASSWORD) {
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('adminPanel').style.display = 'block';
+      loadProducts();
+    } else {
+      document.getElementById('loginErr').style.display = 'block';
+    }
+  }
+  function doLogout() {
+    document.getElementById('loginScreen').style.display = 'flex';
+    document.getElementById('adminPanel').style.display = 'none';
+    document.getElementById('pwdInput').value = '';
+  }
+
+  // ══ SUPABASE API ══
+  async function sbFetch(path, method='GET', body=null) {
+    const opts = {
+      method,
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=representation'
+      }
+    };
+    if (body) opts.body = JSON.stringify(body);
+    const res = await fetch(`${SUPABASE_URL}/rest/v1${path}`, opts);
+    if (!res.ok) { const err = await res.text(); throw new Error(err); }
+    if (res.status === 204) return null;
+    return res.json();
+  }
+
+  // ══ CARICA PRODOTTI ══
+  let products = [];
+  async function loadProducts() {
+    document.getElementById('productTableBody').innerHTML = '<tr><td colspan="7" class="table-loading">✦ Caricamento…</td></tr>';
+    try {
+      products = await sbFetch('/prodotti?select=*&order=id.asc');
+      renderTable();
+      updateStats();
+    } catch(e) {
+      document.getElementById('productTableBody').innerHTML = '<tr><td colspan="7" class="table-empty">Errore: ' + e.message + '</td></tr>';
+    }
+  }
+
+  function updateStats() {
+    const attivi = products.filter(p => p.attivo).length;
+    document.getElementById('statTot').textContent = products.length;
+    document.getElementById('statAttivi').textContent = attivi;
+    document.getElementById('statInattivi').textContent = products.length - attivi;
+  }
+
+  function renderTable() {
+    const tbody = document.getElementById('productTableBody');
+    if (products.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="7" class="table-empty">Nessun prodotto. Aggiungine uno!</td></tr>';
+      return;
+    }
+    tbody.innerHTML = products.map(p => `
+      <tr>
+        <td class="td-icona">${p.icona||'—'}</td>
+        <td class="td-nome">${p.nome}</td>
+        <td><span class="td-cat">${p.categoria}</span></td>
+        <td>${p.prezzo}</td>
+        <td style="font-size:0.78rem;opacity:0.7;">${p.consegna}</td>
+        <td><span class="td-attivo ${p.attivo?'si':'no'}">${p.attivo?'Attivo':'Nascosto'}</span></td>
+        <td class="td-actions">
+          <button class="btn-edit" onclick="editProduct(${p.id})">Modifica</button>
+          <button class="btn-del" onclick="askDelete(${p.id},'${p.nome.replace(/'/g,"\\'")}')">Elimina</button>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  // ══ MODAL PRODOTTO ══
+  function openProductModal(id=null) {
+    const p = id ? products.find(x => x.id === id) : null;
+    document.getElementById('pModalTitle').textContent = p ? 'Modifica Prodotto' : 'Nuovo Prodotto';
+    document.getElementById('pId').value = p ? p.id : '';
+    document.getElementById('pIcona').value = p ? (p.icona||'') : '';
+    document.getElementById('pNome').value = p ? p.nome : '';
+    document.getElementById('pDescrizione').value = p ? p.descrizione : '';
+    document.getElementById('pPrezzo').value = p ? p.prezzo : '';
+    document.getElementById('pConsegna').value = p ? p.consegna : '';
+    document.getElementById('pCategoria').value = p ? p.categoria : 'animali';
+    document.getElementById('pForme').value = p ? (p.forme||'') : '';
+    document.getElementById('pMateriali').value = p ? (p.materiali||'') : '';
+    document.getElementById('pAttivo').checked = p ? p.attivo : true;
+    document.getElementById('pModalMsg').style.display = 'none';
+    document.getElementById('productModal').classList.add('open');
+  }
+  function editProduct(id) { openProductModal(id); }
+  function closeProductModal() { document.getElementById('productModal').classList.remove('open'); }
+
+  async function saveProduct() {
+    const id = document.getElementById('pId').value;
+    const data = {
+      icona: document.getElementById('pIcona').value.trim(),
+      nome: document.getElementById('pNome').value.trim(),
+      descrizione: document.getElementById('pDescrizione').value.trim(),
+      prezzo: document.getElementById('pPrezzo').value.trim(),
+      consegna: document.getElementById('pConsegna').value.trim(),
+      categoria: document.getElementById('pCategoria').value,
+      forme: document.getElementById('pForme').value.trim(),
+      materiali: document.getElementById('pMateriali').value.trim(),
+      attivo: document.getElementById('pAttivo').checked,
+    };
+
+    if (!data.nome || !data.descrizione || !data.prezzo || !data.consegna) {
+      showMsg('Compila tutti i campi obbligatori.', 'err');
+      return;
+    }
+
+    const saveBtn = document.querySelector('.btn-save');
+    saveBtn.textContent = 'Salvataggio…';
+    saveBtn.disabled = true;
+
+    try {
+      if (id) {
+        await sbFetch(`/prodotti?id=eq.${id}`, 'PATCH', data);
+      } else {
+        await sbFetch('/prodotti', 'POST', data);
+      }
+      await loadProducts();
+      closeProductModal();
+    } catch(e) {
+      showMsg('Errore: ' + e.message, 'err');
+    } finally {
+      saveBtn.textContent = 'Salva prodotto →';
+      saveBtn.disabled = false;
+    }
+  }
+
+  function showMsg(text, type) {
+    const el = document.getElementById('pModalMsg');
+    el.textContent = text;
+    el.className = 'pmodal-msg ' + type;
+    el.style.display = 'block';
+  }
+
+  // ══ DELETE ══
+  let deleteId = null;
+  function askDelete(id, nome) {
+    deleteId = id;
+    document.getElementById('confirmText').textContent = `Stai per eliminare "${nome}". Questa azione non può essere annullata.`;
+    document.getElementById('confirmModal').classList.add('open');
+  }
+  function closeConfirm() { document.getElementById('confirmModal').classList.remove('open'); deleteId = null; }
+  async function confirmDelete() {
+    if (!deleteId) return;
+    try {
+      await sbFetch(`/prodotti?id=eq.${deleteId}`, 'DELETE');
+      closeConfirm();
+      await loadProducts();
+    } catch(e) {
+      alert('Errore eliminazione: ' + e.message);
+    }
+  }
+
+  // Chiudi modal cliccando fuori
+  document.getElementById('productModal').addEventListener('click', function(e){ if(e.target===this) closeProductModal(); });
+  document.getElementById('confirmModal').addEventListener('click', function(e){ if(e.target===this) closeConfirm(); });
+</script>
+</body>
+</html>
