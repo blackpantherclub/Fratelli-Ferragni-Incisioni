@@ -238,7 +238,7 @@ footer { background: #0F0B04; padding: 4rem 3rem 2rem; border-top: 1px solid rgb
 .h-ring:nth-child(3) { width: 920px; height: 920px; animation: spin 90s linear infinite; opacity: 0.4; }
 .h-content { position: relative; z-index: 2; }
 .h-eye { font-size: 0.68rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
-.h-medal { width: 150px; height: 150px; border-radius: 50%; margin: 0 auto 2.5rem; background: radial-gradient(circle at 35% 35%, #F5E0A0 0%, #C9A84C 35%, #8B6914 65%, #5C4409 100%); box-shadow: 0 0 0 10px rgba(201,168,76,0.08), 0 0 0 20px rgba(201,168,76,0.04), 0 20px 60px rgba(0,0,0,0.6), inset 0 6px 18px rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; font-size: 2.8rem; animation: float 4s ease-in-out infinite; }
+.h-medal { width: 150px; height: 150px; border-radius: 50%; margin: 0 auto 2.5rem; background: radial-gradient(circle at 35% 35%, #1a1a1a 0%, #0d0d0d 50%, #000000 100%); box-shadow: 0 0 0 3px rgba(201,168,76,0.5), 0 0 0 10px rgba(201,168,76,0.08), 0 0 0 20px rgba(201,168,76,0.04), 0 20px 60px rgba(0,0,0,0.8), inset 0 2px 8px rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; font-size: 2.8rem; animation: float 4s ease-in-out infinite; }
 .h-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(3.2rem,8vw,6.5rem); font-weight: 300; line-height: 1.05; margin-bottom: 0.4em; }
 .h-sub { font-size: 0.82rem; letter-spacing: 0.18em; color: var(--warm-mid); margin-bottom: 2.5rem; text-transform: uppercase; }
 .h-features { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; background: rgba(201,168,76,0.08); }
