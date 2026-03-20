@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fratelli Terragni Incisioni — Contatti</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="contatti">
+
+  <nav>
+    <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="Fratelli Terragni Incisioni"></a>
+    <ul class="nav-links">
+      <li><a href="index.html"          data-p="home">Home</a></li>
+      <li><a href="prodotti.html"       data-p="prodotti">Prodotti</a></li>
+      <li><a href="materiali.html"      data-p="materiali">Materiali</a></li>
+      <li><a href="come-funziona.html"  data-p="come-funziona">Come funziona</a></li>
+      <li><a href="galleria.html"       data-p="galleria">Galleria</a></li>
+      <li><a href="contatti.html"       data-p="contatti">Contatti</a></li>
+      <li><a class="nav-cta" onclick="openModal()">Ordina ora</a></li>
+    </ul>
+    <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="mobile-menu" id="mobMenu">
+    <a href="index.html"         data-p="home">Home</a>
+    <a href="prodotti.html"      data-p="prodotti">Prodotti</a>
+    <a href="materiali.html"     data-p="materiali">Materiali</a>
+    <a href="come-funziona.html" data-p="come-funziona">Come funziona</a>
+    <a href="galleria.html"      data-p="galleria">Galleria</a>
+    <a href="contatti.html"      data-p="contatti">Contatti</a>
+    <a onclick="openModal();toggleMenu()" style="color:var(--gold)">✦ Ordina ora</a>
+  </div>
+
+  <div class="page-content">
+
+    <div class="page-header">
+      <span class="sec-label">✦ Siamo qui per te</span>
+      <h1 class="sec-title">Parliamo del<br>tuo <em class="gold-i">progetto</em></h1>
+      <p class="sec-body">Inviaci la tua idea — ti risponderemo entro 24 ore con una bozza e un preventivo su misura.</p>
+    </div>
+
+    <div class="contact-layout">
+      <div class="contact-info">
+        <div class="c-info-title">Dove trovarci</div>
+        <div class="c-item">
+          <div class="c-icon">📍</div>
+          <div>
+            <div class="c-label">Indirizzo</div>
+            <div class="c-val">Via delle Medaglie 12<br>20100 – Milano (MI)</div>
+          </div>
+        </div>
+        <div class="c-item">
+          <div class="c-icon">📧</div>
+          <div>
+            <div class="c-label">Email</div>
+            <div class="c-val"><a href="mailto:info@fratelliferragni.it">info@fratelliferragni.it</a></div>
+          </div>
+        </div>
+        <div class="c-item">
+          <div class="c-icon">💬</div>
+          <div>
+            <div class="c-label">WhatsApp</div>
+            <div class="c-val">
+              <a href="https://wa.me/39XXXXXXXXXX">+39 XXX XXX XXXX</a><br>
+              <span style="font-size:0.75rem;opacity:0.6">Risposta rapida in orario lavorativo</span>
+            </div>
+          </div>
+        </div>
+        <div class="c-item">
+          <div class="c-icon">📸</div>
+          <div>
+            <div class="c-label">Instagram</div>
+            <div class="c-val"><a href="#">@fratelliferragni</a></div>
+          </div>
+        </div>
+        <div class="c-hours">
+          <div class="c-hours-title">✦ Orari di apertura</div>
+          <div class="c-hour-row"><span>Lunedì – Venerdì</span><span>9:00 – 18:00</span></div>
+          <div class="c-hour-row"><span>Sabato</span><span>9:00 – 13:00</span></div>
+          <div class="c-hour-row"><span>Domenica</span><span>Chiuso</span></div>
+          <p style="font-size:0.75rem;margin-top:1rem;color:var(--warm-mid);opacity:0.55;">Laboratorio visitabile su appuntamento</p>
+        </div>
+      </div>
+
+      <div class="contact-form-box">
+        <div id="cFormWrap">
+          <div class="cf-title">Inviaci un messaggio</div>
+          <p class="cf-sub">Compila il modulo — ti risponderemo entro 24 ore lavorative</p>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Nome *</label><input type="text" class="form-input" placeholder="Il tuo nome"></div>
+            <div class="form-group"><label class="form-label">Email *</label><input type="email" class="form-input" placeholder="tua@email.it"></div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Oggetto</label>
+            <select class="form-select">
+              <option>Richiesta preventivo</option>
+              <option>Informazioni sui prodotti</option>
+              <option>Ordine aziendale</option>
+              <option>Stato dell'ordine</option>
+              <option>Altro</option>
+            </select>
+          </div>
+          <div class="form-group"><label class="form-label">Il tuo messaggio *</label><textarea class="form-textarea" placeholder="Descrivi il tuo progetto o fai la tua domanda..."></textarea></div>
+          <button class="btn-g" style="width:100%;margin-top:0.5rem;" onclick="submitContact()">Invia messaggio →</button>
+        </div>
+        <div class="success-box" id="cSuccess">
+          <div class="success-icon">✦</div>
+          <div class="success-title">Messaggio inviato!</div>
+          <p class="success-body">Grazie per averci contattato!<br>Ti risponderemo entro 24 ore lavorative.<br>Controlla anche la cartella spam 🙂</p>
+        </div>
+      </div>
+    </div>
+
+    <section class="wrap bg-dark" style="text-align:center; margin-top:3rem;">
+      <h2 class="sec-title">Preferisci ordinare<br>direttamente?</h2>
+      <p class="sec-body" style="margin:0 auto 2rem;">Usa il nostro modulo d'ordine rapido e ricevi un preventivo in 24h.</p>
+      <a class="btn-g" onclick="openModal()">Richiedi preventivo rapido</a>
+    </section>
+
+    <footer>
+      <div class="fg">
+        <div><div class="fb">Fratelli Terragni<br>Incisioni</div><p class="ft">Incisioni laser su misura per animali, persone e ogni occasione speciale.</p></div>
+        <div><p class="fc-title">Pagine</p><ul class="fl"><li><a href="index.html">Home</a></li><li><a href="prodotti.html">Prodotti</a></li><li><a href="materiali.html">Materiali</a></li><li><a href="come-funziona.html">Come funziona</a></li></ul></div>
+        <div><p class="fc-title">Contatti</p><ul class="fl"><li><a href="mailto:info@fratelliferragni.it">info@fratelliferragni.it</a></li><li><a href="#">+39 XXX XXX XXXX</a></li></ul></div>
+        <div><p class="fc-title">Seguici</p><div class="sr" style="margin-top:0.5rem"><div class="sb">📸</div><div class="sb">📘</div></div></div>
+      </div>
+      <div class="fb-bottom"><p class="fc">© 2025 Fratelli Terragni Incisioni · Tutti i diritti riservati</p></div>
+    </footer>
+  </div>
+
+  <div class="modal-overlay" id="orderModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div id="mFormWrap">
+        <div class="modal-title">Richiedi un preventivo</div>
+        <p class="modal-sub">Compila il modulo — ti risponderemo entro 24 ore</p>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Nome *</label><input type="text" class="form-input" placeholder="Il tuo nome"></div>
+          <div class="form-group"><label class="form-label">Email *</label><input type="email" class="form-input" placeholder="tua@email.it"></div>
+        </div>
+        <div class="form-group"><label class="form-label">Tipo di prodotto</label><select class="form-select"><option>Medaglione per animali</option><option>Medaglia commemorativa</option><option>Ciondolo personalizzato</option><option>Targa per oggetti</option><option>Regalo personalizzato</option><option>Fornitura aziendale</option><option>Altro</option></select></div>
+        <div class="form-group"><label class="form-label">Testo / descrizione</label><textarea class="form-textarea" placeholder="Es: «Luna · ☎ 333 123 4567»..."></textarea></div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Materiale</label><select class="form-select"><option>Acciaio inox</option><option>Ottone</option><option>Alluminio</option><option>Rame</option><option>Acrilico</option><option>Legno</option><option>Consigliami tu</option></select></div>
+          <div class="form-group"><label class="form-label">Quantità</label><input type="number" class="form-input" placeholder="1" min="1"></div>
+        </div>
+        <button class="btn-g" style="width:100%;margin-top:0.5rem;" onclick="submitModal()">Invia richiesta →</button>
+      </div>
+      <div class="success-box" id="mSuccess">
+        <div class="success-icon">✦</div>
+        <div class="success-title">Richiesta inviata!</div>
+        <p class="success-body">Grazie! Ti risponderemo entro 24 ore con il tuo preventivo.<br>Controlla anche la cartella spam 🙂</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

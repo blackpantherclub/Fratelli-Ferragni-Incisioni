@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fratelli Terragni Incisioni — Home</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="home">
+
+  <!-- ═══ NAVBAR ═══ -->
+  <nav>
+    <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="Fratelli Terragni Incisioni"></a>
+    <ul class="nav-links">
+      <li><a href="index.html"          data-p="home">Home</a></li>
+      <li><a href="prodotti.html"       data-p="prodotti">Prodotti</a></li>
+      <li><a href="materiali.html"      data-p="materiali">Materiali</a></li>
+      <li><a href="come-funziona.html"  data-p="come-funziona">Come funziona</a></li>
+      <li><a href="galleria.html"       data-p="galleria">Galleria</a></li>
+      <li><a href="contatti.html"       data-p="contatti">Contatti</a></li>
+      <li><a class="nav-cta" onclick="openModal()">Ordina ora</a></li>
+    </ul>
+    <button class="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobMenu">
+    <a href="index.html"         data-p="home">Home</a>
+    <a href="prodotti.html"      data-p="prodotti">Prodotti</a>
+    <a href="materiali.html"     data-p="materiali">Materiali</a>
+    <a href="come-funziona.html" data-p="come-funziona">Come funziona</a>
+    <a href="galleria.html"      data-p="galleria">Galleria</a>
+    <a href="contatti.html"      data-p="contatti">Contatti</a>
+    <a onclick="openModal();toggleMenu()" style="color:var(--gold)">✦ Ordina ora</a>
+  </div>
+
+  <!-- ═══ CONTENT ═══ -->
+  <div class="page-content">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="h-ring"></div>
+      <div class="h-ring"></div>
+      <div class="h-ring"></div>
+      <div class="h-content">
+        <p class="h-eye">✦ Artigianato laser · Ogni pezzo è unico · Fatto con cura</p>
+        <div class="h-medal">🏅</div>
+        <h1 class="h-title">Medaglie <em class="gold-i">Incise</em><br>su Misura</h1>
+        <p class="h-sub">Per i tuoi animali · Per le persone che ami · Per ogni memoria</p>
+        <div class="btn-row" style="justify-content:center;">
+          <a class="btn-g" onclick="openModal()">Richiedi preventivo</a>
+          <a class="btn-o" href="prodotti.html">Scopri i prodotti →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 VANTAGGI -->
+    <div class="h-features">
+      <div class="h-feat">
+        <div class="h-feat-icon">⚡</div>
+        <div class="h-feat-name">Precisione laser</div>
+        <p class="h-feat-desc">Tecnologia di incisione industriale per risultati nitidi e duraturi su ogni materiale.</p>
+      </div>
+      <div class="h-feat">
+        <div class="h-feat-icon">🎨</div>
+        <div class="h-feat-name">100% personalizzato</div>
+        <p class="h-feat-desc">Testo, logo, foto o disegno: ogni medaglia è unica e realizzata esattamente come la vuoi tu.</p>
+      </div>
+      <div class="h-feat">
+        <div class="h-feat-icon">📦</div>
+        <div class="h-feat-name">Consegna rapida</div>
+        <p class="h-feat-desc">Spedizione in tutta Italia in 3–7 giorni. Servizio express disponibile in 48h.</p>
+      </div>
+    </div>
+
+    <!-- COME FUNZIONA (preview) -->
+    <section class="wrap bg-dark">
+      <span class="sec-label">✦ Come funziona</span>
+      <h2 class="sec-title">Dal tuo cuore<br>alle nostre <em class="gold-i">mani</em></h2>
+      <div class="h-steps">
+        <div><div class="hs-num">01</div><div class="hs-title">Invia la richiesta</div><p class="hs-body">Compila il form online o scrivici su WhatsApp con le tue idee.</p></div>
+        <div><div class="hs-num">02</div><div class="hs-title">Ricevi il preventivo</div><p class="hs-body">Ti inviamo bozza e prezzo entro 24h. Nessun impegno prima dell'ok.</p></div>
+        <div><div class="hs-num">03</div><div class="hs-title">Incidiamo</div><p class="hs-body">Lavoriamo al tuo pezzo con cura artigianale e laser di precisione.</p></div>
+        <div><div class="hs-num">04</div><div class="hs-title">Consegna a casa</div><p class="hs-body">Spediamo in packaging curato o ritiro in laboratorio su appuntamento.</p></div>
+      </div>
+      <div style="margin-top:2.5rem">
+        <a class="btn-o" href="come-funziona.html">Scopri tutti i dettagli →</a>
+      </div>
+    </section>
+
+    <!-- STRISCIA ANIMATA -->
+    <div class="strip-wrap">
+      <div class="strip-track">
+        <div class="s-item">Luna · Cucciola · ☎ 333 111</div>
+        <div class="s-item">Marco &amp; Sofia · 2024</div>
+        <div class="s-item">Charlie · Best Boy Forever</div>
+        <div class="s-item">Premio Eccellenza ⭐</div>
+        <div class="s-item">«Per sempre nel cuore»</div>
+        <div class="s-item">Romeo · Via Roma 12</div>
+        <div class="s-item">Campionato Regionale</div>
+        <div class="s-item">Con tutto l'amore · Mamma</div>
+        <div class="s-item">Luna · Cucciola · ☎ 333 111</div>
+        <div class="s-item">Marco &amp; Sofia · 2024</div>
+        <div class="s-item">Charlie · Best Boy Forever</div>
+        <div class="s-item">Premio Eccellenza ⭐</div>
+        <div class="s-item">«Per sempre nel cuore»</div>
+        <div class="s-item">Romeo · Via Roma 12</div>
+        <div class="s-item">Campionato Regionale</div>
+        <div class="s-item">Con tutto l'amore · Mamma</div>
+      </div>
+    </div>
+
+    <!-- CTA FINALE -->
+    <section class="wrap" style="text-align:center; background:radial-gradient(ellipse at center,#2E2416,var(--ink) 70%);">
+      <span class="sec-label">✦ Pronto a iniziare?</span>
+      <h2 class="sec-title" style="max-width:560px; margin:0 auto 1rem;">Un pezzo unico per chi ami di più</h2>
+      <p class="sec-body" style="margin:0 auto 2.5rem; text-align:center;">Scrivi il nome del tuo animale, la tua dedica, le coordinate del posto speciale — lo incidiamo noi.</p>
+      <div class="btn-row" style="justify-content:center;">
+        <a class="btn-g" onclick="openModal()">Ordina ora</a>
+        <a class="btn-o" href="contatti.html">Contattaci</a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="fg">
+        <div>
+          <div class="fb">Fratelli Terragni<br>Incisioni</div>
+          <p class="ft">Incisioni laser su misura per animali, persone e ogni occasione speciale.</p>
+        </div>
+        <div>
+          <p class="fc-title">Pagine</p>
+          <ul class="fl">
+            <li><a href="prodotti.html">Prodotti</a></li>
+            <li><a href="materiali.html">Materiali</a></li>
+            <li><a href="come-funziona.html">Come funziona</a></li>
+            <li><a href="galleria.html">Galleria</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="fc-title">Contatti</p>
+          <ul class="fl">
+            <li><a href="mailto:info@fratelliferragni.it">info@fratelliferragni.it</a></li>
+            <li><a href="contatti.html">+39 XXX XXX XXXX</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="fc-title">Seguici</p>
+          <div class="sr" style="margin-top:0.5rem">
+            <div class="sb">📸</div><div class="sb">📘</div><div class="sb">🐦</div>
+          </div>
+        </div>
+      </div>
+      <div class="fb-bottom">
+        <p class="fc">© 2025 Fratelli Terragni Incisioni · Tutti i diritti riservati</p>
+      </div>
+    </footer>
+  </div><!-- /page-content -->
+
+  <!-- ═══ MODAL PREVENTIVO ═══ -->
+  <div class="modal-overlay" id="orderModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div id="mFormWrap">
+        <div class="modal-title">Richiedi un preventivo</div>
+        <p class="modal-sub">Compila il modulo — ti risponderemo entro 24 ore</p>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Nome *</label><input type="text" class="form-input" placeholder="Il tuo nome"></div>
+          <div class="form-group"><label class="form-label">Email *</label><input type="email" class="form-input" placeholder="tua@email.it"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Tipo di prodotto</label>
+          <select class="form-select"><option>Medaglione per animali</option><option>Medaglia commemorativa</option><option>Ciondolo personalizzato</option><option>Targa per oggetti</option><option>Regalo personalizzato</option><option>Fornitura aziendale</option><option>Altro</option></select>
+        </div>
+        <div class="form-group"><label class="form-label">Testo / descrizione</label><textarea class="form-textarea" placeholder="Es: «Luna · ☎ 333 123 4567»..."></textarea></div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Materiale</label>
+            <select class="form-select"><option>Acciaio inox</option><option>Ottone</option><option>Alluminio</option><option>Rame</option><option>Acrilico</option><option>Legno</option><option>Consigliami tu</option></select>
+          </div>
+          <div class="form-group"><label class="form-label">Quantità</label><input type="number" class="form-input" placeholder="1" min="1"></div>
+        </div>
+        <button class="btn-g" style="width:100%;margin-top:0.5rem;" onclick="submitModal()">Invia richiesta →</button>
+      </div>
+      <div class="success-box" id="mSuccess">
+        <div class="success-icon">✦</div>
+        <div class="success-title">Richiesta inviata!</div>
+        <p class="success-body">Grazie! Ti risponderemo entro 24 ore con il tuo preventivo.<br>Controlla anche la cartella spam 🙂</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

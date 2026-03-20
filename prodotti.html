@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fratelli Terragni Incisioni — Prodotti</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="prodotti">
+
+  <nav>
+    <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="Fratelli Terragni Incisioni"></a>
+    <ul class="nav-links">
+      <li><a href="index.html"          data-p="home">Home</a></li>
+      <li><a href="prodotti.html"       data-p="prodotti">Prodotti</a></li>
+      <li><a href="materiali.html"      data-p="materiali">Materiali</a></li>
+      <li><a href="come-funziona.html"  data-p="come-funziona">Come funziona</a></li>
+      <li><a href="galleria.html"       data-p="galleria">Galleria</a></li>
+      <li><a href="contatti.html"       data-p="contatti">Contatti</a></li>
+      <li><a class="nav-cta" onclick="openModal()">Ordina ora</a></li>
+    </ul>
+    <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="mobile-menu" id="mobMenu">
+    <a href="index.html"         data-p="home">Home</a>
+    <a href="prodotti.html"      data-p="prodotti">Prodotti</a>
+    <a href="materiali.html"     data-p="materiali">Materiali</a>
+    <a href="come-funziona.html" data-p="come-funziona">Come funziona</a>
+    <a href="galleria.html"      data-p="galleria">Galleria</a>
+    <a href="contatti.html"      data-p="contatti">Contatti</a>
+    <a onclick="openModal();toggleMenu()" style="color:var(--gold)">✦ Ordina ora</a>
+  </div>
+
+  <div class="page-content">
+
+    <div class="page-header">
+      <span class="sec-label">✦ Il nostro catalogo</span>
+      <h1 class="sec-title">I nostri <em class="gold-i">Prodotti</em></h1>
+      <p class="sec-body">Ogni medaglia è realizzata su misura. Scegli la categoria, il materiale e il testo — pensiamo noi al resto.</p>
+    </div>
+
+    <div style="padding:3rem 3rem 0;">
+      <div class="prod-grid">
+        <div class="prod-card">
+          <div class="prod-medal">🐾</div>
+          <div class="prod-tags"><span class="tag">Animali</span><span class="tag">Bestseller</span></div>
+          <div class="prod-name">Medaglione per Animali</div>
+          <p class="prod-desc">Targhe identificative per cani, gatti e altri amici a quattro zampe. Incisione con nome, numero di telefono e qualsiasi messaggio. Forme disponibili: rotonda, ossuta, a cuore, a zampa.</p>
+          <p class="prod-price">A partire da €8 · Consegna 3–5 giorni</p>
+        </div>
+        <div class="prod-card">
+          <div class="prod-medal">🏅</div>
+          <div class="prod-tags"><span class="tag">Sport</span><span class="tag">Premi</span></div>
+          <div class="prod-name">Medaglie Commemorative</div>
+          <p class="prod-desc">Per eventi sportivi, premiazioni, anniversari e concorsi. In acciaio inox, ottone o alluminio con grafica personalizzata, rilievi e colori.</p>
+          <p class="prod-price">A partire da €12 · Consegna 5–7 giorni</p>
+        </div>
+        <div class="prod-card">
+          <div class="prod-medal">💛</div>
+          <div class="prod-tags"><span class="tag">Gioielli</span><span class="tag">Regalo</span></div>
+          <div class="prod-name">Ciondoli Personalizzati</div>
+          <p class="prod-desc">Ciondoli per braccialetti e collane con nomi, date speciali, coordinate geografiche o dediche intime. Materiali ipoallergenici disponibili su richiesta.</p>
+          <p class="prod-price">A partire da €15 · Consegna 5–7 giorni</p>
+        </div>
+        <div class="prod-card">
+          <div class="prod-medal">🏷️</div>
+          <div class="prod-tags"><span class="tag">Oggetti</span><span class="tag">Pratico</span></div>
+          <div class="prod-name">Targhe per Oggetti</div>
+          <p class="prod-desc">Targhette per borse, valigie, chiavi, strumenti musicali, attrezzatura sportiva. Personalizzabili in ogni dimensione e materiale.</p>
+          <p class="prod-price">A partire da €6 · Consegna 3–5 giorni</p>
+        </div>
+        <div class="prod-card">
+          <div class="prod-medal">🎁</div>
+          <div class="prod-tags"><span class="tag">Regalo</span><span class="tag">Ricorrenze</span></div>
+          <div class="prod-name">Regali Personalizzati</div>
+          <p class="prod-desc">Medaglie regalo per compleanni, lauree, nascite, matrimoni, pensionamenti. Ogni occasione merita un ricordo eterno. Confezione regalo disponibile.</p>
+          <p class="prod-price">A partire da €18 · Consegna 5–10 giorni</p>
+        </div>
+        <div class="prod-card">
+          <div class="prod-medal">🏢</div>
+          <div class="prod-tags"><span class="tag">Business</span><span class="tag">Grandi ordini</span></div>
+          <div class="prod-name">Forniture Aziendali</div>
+          <p class="prod-desc">Targhe aziendali, medaglie per premi dipendenti, segnaposto per eventi corporate. Sconti progressivi su ordinativi multipli oltre 10 pezzi.</p>
+          <p class="prod-price">Preventivo su richiesta · Express disponibile</p>
+        </div>
+        <div class="prod-card">
+          <div class="prod-medal">🕊️</div>
+          <div class="prod-tags"><span class="tag">Memoriale</span><span class="tag">Speciale</span></div>
+          <div class="prod-name">Medaglie Memorial</div>
+          <p class="prod-desc">Per ricordare per sempre chi non c'è più — persone o animali. Incisione con foto, nome, date e dediche. Trattate con la massima delicatezza.</p>
+          <p class="prod-price">A partire da €22 · Consegna 7–10 giorni</p>
+        </div>
+        <div class="prod-card">
+          <div class="prod-medal">🎨</div>
+          <div class="prod-tags"><span class="tag">Custom</span><span class="tag">Su misura</span></div>
+          <div class="prod-name">Design Personalizzato</div>
+          <p class="prod-desc">Hai un'idea in mente? Inviaci il tuo disegno, logo o foto in alta risoluzione. Formati accettati: PNG, JPG, SVG, PDF. Valutazione gratuita prima di procedere.</p>
+          <p class="prod-price">Preventivo su richiesta · Consulta gratuitamente</p>
+        </div>
+      </div>
+    </div>
+
+    <section class="wrap" style="text-align:center;">
+      <h2 class="sec-title">Non trovi quello che cerchi?</h2>
+      <p class="sec-body" style="margin:0 auto 2rem;">Realizziamo qualsiasi tipo di incisione. Scrivici e troviamo insieme la soluzione.</p>
+      <div class="btn-row" style="justify-content:center;">
+        <a class="btn-g" onclick="openModal()">Richiedi preventivo</a>
+        <a class="btn-o" href="contatti.html">Contattaci →</a>
+      </div>
+    </section>
+
+    <footer>
+      <div class="fg">
+        <div><div class="fb">Fratelli Terragni<br>Incisioni</div><p class="ft">Incisioni laser su misura per animali, persone e ogni occasione speciale.</p></div>
+        <div><p class="fc-title">Pagine</p><ul class="fl"><li><a href="index.html">Home</a></li><li><a href="materiali.html">Materiali</a></li><li><a href="come-funziona.html">Come funziona</a></li><li><a href="galleria.html">Galleria</a></li></ul></div>
+        <div><p class="fc-title">Contatti</p><ul class="fl"><li><a href="mailto:info@fratelliferragni.it">info@fratelliferragni.it</a></li><li><a href="contatti.html">+39 XXX XXX XXXX</a></li></ul></div>
+        <div><p class="fc-title">Seguici</p><div class="sr" style="margin-top:0.5rem"><div class="sb">📸</div><div class="sb">📘</div></div></div>
+      </div>
+      <div class="fb-bottom"><p class="fc">© 2025 Fratelli Terragni Incisioni · Tutti i diritti riservati</p></div>
+    </footer>
+  </div>
+
+  <div class="modal-overlay" id="orderModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div id="mFormWrap">
+        <div class="modal-title">Richiedi un preventivo</div>
+        <p class="modal-sub">Compila il modulo — ti risponderemo entro 24 ore</p>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Nome *</label><input type="text" class="form-input" placeholder="Il tuo nome"></div>
+          <div class="form-group"><label class="form-label">Email *</label><input type="email" class="form-input" placeholder="tua@email.it"></div>
+        </div>
+        <div class="form-group"><label class="form-label">Tipo di prodotto</label><select class="form-select"><option>Medaglione per animali</option><option>Medaglia commemorativa</option><option>Ciondolo personalizzato</option><option>Targa per oggetti</option><option>Regalo personalizzato</option><option>Fornitura aziendale</option><option>Altro</option></select></div>
+        <div class="form-group"><label class="form-label">Testo / descrizione</label><textarea class="form-textarea" placeholder="Es: «Luna · ☎ 333 123 4567»..."></textarea></div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Materiale</label><select class="form-select"><option>Acciaio inox</option><option>Ottone</option><option>Alluminio</option><option>Rame</option><option>Acrilico</option><option>Legno</option><option>Consigliami tu</option></select></div>
+          <div class="form-group"><label class="form-label">Quantità</label><input type="number" class="form-input" placeholder="1" min="1"></div>
+        </div>
+        <button class="btn-g" style="width:100%;margin-top:0.5rem;" onclick="submitModal()">Invia richiesta →</button>
+      </div>
+      <div class="success-box" id="mSuccess">
+        <div class="success-icon">✦</div>
+        <div class="success-title">Richiesta inviata!</div>
+        <p class="success-body">Grazie! Ti risponderemo entro 24 ore con il tuo preventivo.<br>Controlla anche la cartella spam 🙂</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fratelli Terragni Incisioni — Come funziona</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="come-funziona">
+
+  <nav>
+    <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="Fratelli Terragni Incisioni"></a>
+    <ul class="nav-links">
+      <li><a href="index.html"          data-p="home">Home</a></li>
+      <li><a href="prodotti.html"       data-p="prodotti">Prodotti</a></li>
+      <li><a href="materiali.html"      data-p="materiali">Materiali</a></li>
+      <li><a href="come-funziona.html"  data-p="come-funziona">Come funziona</a></li>
+      <li><a href="galleria.html"       data-p="galleria">Galleria</a></li>
+      <li><a href="contatti.html"       data-p="contatti">Contatti</a></li>
+      <li><a class="nav-cta" onclick="openModal()">Ordina ora</a></li>
+    </ul>
+    <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="mobile-menu" id="mobMenu">
+    <a href="index.html"         data-p="home">Home</a>
+    <a href="prodotti.html"      data-p="prodotti">Prodotti</a>
+    <a href="materiali.html"     data-p="materiali">Materiali</a>
+    <a href="come-funziona.html" data-p="come-funziona">Come funziona</a>
+    <a href="galleria.html"      data-p="galleria">Galleria</a>
+    <a href="contatti.html"      data-p="contatti">Contatti</a>
+    <a onclick="openModal();toggleMenu()" style="color:var(--gold)">✦ Ordina ora</a>
+  </div>
+
+  <div class="page-content">
+
+    <div class="page-header">
+      <span class="sec-label">✦ Il processo</span>
+      <h1 class="sec-title">Come funziona<br>il nostro <em class="gold-i">servizio</em></h1>
+      <p class="sec-body">Dall'idea al prodotto finito: un processo semplice, trasparente e pensato per te.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="t-item">
+        <div class="t-num">01</div>
+        <div>
+          <div class="t-title">Invia la tua richiesta</div>
+          <p class="t-body">Compila il modulo sul sito, scrivici via email o su WhatsApp. Dicci cosa vuoi incidere: testo, logo, foto. Descrivi la forma, il materiale e la quantità. Non preoccuparti se non sei sicuro — siamo qui per guidarti.</p>
+          <p class="t-note">✦ Risposta garantita entro 24 ore lavorative</p>
+        </div>
+      </div>
+      <div class="t-item">
+        <div class="t-num">02</div>
+        <div>
+          <div class="t-title">Ricevi bozza e preventivo</div>
+          <p class="t-body">Prima di procedere ti inviamo una bozza digitale del tuo progetto e un preventivo dettagliato. Potrai richiedere modifiche gratuitamente fino a quando non sei completamente soddisfatto. Nessun impegno prima della tua approvazione.</p>
+          <p class="t-note">✦ Bozze gratuite · Modifiche illimitate prima dell'ok</p>
+        </div>
+      </div>
+      <div class="t-item">
+        <div class="t-num">03</div>
+        <div>
+          <div class="t-title">Conferma e pagamento</div>
+          <p class="t-body">Una volta approvata la bozza, procedi con il pagamento sicuro (bonifico, carta di credito o PayPal). Per ordini aziendali accettiamo anche pagamento a 30 giorni con fattura. La produzione inizia immediatamente.</p>
+          <p class="t-note">✦ Pagamento sicuro · Fattura disponibile</p>
+        </div>
+      </div>
+      <div class="t-item">
+        <div class="t-num">04</div>
+        <div>
+          <div class="t-title">Incisione artigianale</div>
+          <p class="t-body">Il tuo pezzo viene lavorato con il nostro laser di precisione industriale. Ogni medaglia è controllata a mano prima di essere approvata. Utilizziamo macchinari di ultima generazione per risultati nitidi e duraturi.</p>
+          <p class="t-note">✦ Controllo manuale su ogni pezzo · Qualità garantita</p>
+        </div>
+      </div>
+      <div class="t-item">
+        <div class="t-num">05</div>
+        <div>
+          <div class="t-title">Consegna a casa tua</div>
+          <p class="t-body">Il tuo ordine viene confezionato con cura e spedito con corriere tracciato in tutta Italia. Riceverai un'email con il codice di tracciamento. Ritiro in laboratorio disponibile su appuntamento.</p>
+          <p class="t-note">✦ Spedizione tracciata · Express 48h disponibile</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="wrap">
+      <span class="sec-label">✦ Domande frequenti</span>
+      <h2 class="sec-title">Hai ancora<br><em class="gold-i">dubbi?</em></h2>
+      <div style="max-width:780px; margin-top:2rem;">
+        <div class="faq-item">
+          <div class="faq-q" onclick="faq(this)">Quanto tempo ci vuole?<span class="faq-icon">+</span></div>
+          <div class="faq-a">3–7 giorni lavorativi. Per urgenze offriamo express 48h con piccolo sovrapprezzo. Tempi per ordini multipli concordati nel preventivo.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="faq(this)">Posso inviare il mio logo o disegno?<span class="faq-icon">+</span></div>
+          <div class="faq-a">Sì! Accettiamo PNG, JPG, PDF, SVG. Più alta è la risoluzione, migliore sarà il risultato. Valutiamo ogni grafica gratuitamente prima di procedere.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="faq(this)">I prodotti per animali sono sicuri?<span class="faq-icon">+</span></div>
+          <div class="faq-a">Sì, materiali atossici e testati. Bordi smussati, ganci inclusi, peso calibrato per non disturbare il tuo animale.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="faq(this)">Fate spedizioni in tutta Italia?<span class="faq-icon">+</span></div>
+          <div class="faq-a">Sì, con corriere tracciato. Costi indicati nel preventivo. Spedizione gratuita per ordini superiori a €50.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="faq(this)">Fate ordini aziendali e grandi quantità?<span class="faq-icon">+</span></div>
+          <div class="faq-a">Sì. Per quantità superiori a 10 pezzi offriamo tariffe dedicate con sconti progressivi. Contattaci per un preventivo personalizzato.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="faq(this)">Posso fare modifiche dopo aver ordinato?<span class="faq-icon">+</span></div>
+          <div class="faq-a">Le modifiche sono possibili finché la lavorazione non è iniziata. Contattaci appena possibile via email o WhatsApp.</div>
+        </div>
+      </div>
+    </div>
+
+    <section class="wrap bg-dark" style="text-align:center;">
+      <h2 class="sec-title">Pronto a ordinare?</h2>
+      <div class="btn-row" style="justify-content:center; margin-top:1.5rem;">
+        <a class="btn-g" onclick="openModal()">Richiedi preventivo</a>
+        <a class="btn-o" href="contatti.html">Contattaci →</a>
+      </div>
+    </section>
+
+    <footer>
+      <div class="fg">
+        <div><div class="fb">Fratelli Terragni<br>Incisioni</div><p class="ft">Incisioni laser su misura per animali, persone e ogni occasione speciale.</p></div>
+        <div><p class="fc-title">Pagine</p><ul class="fl"><li><a href="index.html">Home</a></li><li><a href="prodotti.html">Prodotti</a></li><li><a href="materiali.html">Materiali</a></li><li><a href="galleria.html">Galleria</a></li></ul></div>
+        <div><p class="fc-title">Contatti</p><ul class="fl"><li><a href="mailto:info@fratelliferragni.it">info@fratelliferragni.it</a></li><li><a href="contatti.html">+39 XXX XXX XXXX</a></li></ul></div>
+        <div><p class="fc-title">Seguici</p><div class="sr" style="margin-top:0.5rem"><div class="sb">📸</div><div class="sb">📘</div></div></div>
+      </div>
+      <div class="fb-bottom"><p class="fc">© 2025 Fratelli Terragni Incisioni · Tutti i diritti riservati</p></div>
+    </footer>
+  </div>
+
+  <div class="modal-overlay" id="orderModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div id="mFormWrap">
+        <div class="modal-title">Richiedi un preventivo</div>
+        <p class="modal-sub">Compila il modulo — ti risponderemo entro 24 ore</p>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Nome *</label><input type="text" class="form-input" placeholder="Il tuo nome"></div>
+          <div class="form-group"><label class="form-label">Email *</label><input type="email" class="form-input" placeholder="tua@email.it"></div>
+        </div>
+        <div class="form-group"><label class="form-label">Tipo di prodotto</label><select class="form-select"><option>Medaglione per animali</option><option>Medaglia commemorativa</option><option>Ciondolo personalizzato</option><option>Targa per oggetti</option><option>Regalo personalizzato</option><option>Fornitura aziendale</option><option>Altro</option></select></div>
+        <div class="form-group"><label class="form-label">Testo / descrizione</label><textarea class="form-textarea" placeholder="Es: «Luna · ☎ 333 123 4567»..."></textarea></div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Materiale</label><select class="form-select"><option>Acciaio inox</option><option>Ottone</option><option>Alluminio</option><option>Rame</option><option>Acrilico</option><option>Legno</option><option>Consigliami tu</option></select></div>
+          <div class="form-group"><label class="form-label">Quantità</label><input type="number" class="form-input" placeholder="1" min="1"></div>
+        </div>
+        <button class="btn-g" style="width:100%;margin-top:0.5rem;" onclick="submitModal()">Invia richiesta →</button>
+      </div>
+      <div class="success-box" id="mSuccess">
+        <div class="success-icon">✦</div>
+        <div class="success-title">Richiesta inviata!</div>
+        <p class="success-body">Grazie! Ti risponderemo entro 24 ore con il tuo preventivo.<br>Controlla anche la cartella spam 🙂</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
