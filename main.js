@@ -158,6 +158,15 @@ function faq(el) {
 /* ── Chiudi modal cliccando overlay ── */
 document.addEventListener('DOMContentLoaded', function () {
   setActiveNav();
+
+  // Listener file input
+  const fileInput = document.getElementById('m-file');
+  if (fileInput) {
+    fileInput.addEventListener('change', function() {
+      handleFileChange('m-file', 'mFileInfo');
+    });
+  }
+
   const overlay = document.getElementById('orderModal');
   if (overlay) {
     overlay.addEventListener('click', function (e) {

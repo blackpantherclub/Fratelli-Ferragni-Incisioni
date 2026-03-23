@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fratelli Terragni Incisioni — Home</title>
   <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="js/main.js" defer></script>
 </head>
 <body data-page="home">
 
@@ -188,7 +190,7 @@
         </div>
         <div class="form-group">
           <label class="form-label">Allega file (immagine, disegno, logo…)</label>
-          <input id="m-file" type="file" accept="image/*,.pdf,.svg,.png,.jpg,.jpeg" style="display:none" onchange="handleFileChange('m-file','mFileInfo')">
+          <input id="m-file" type="file" accept="image/*,.pdf,.svg,.png,.jpg,.jpeg" style="display:none">
           <div id="mFileDrop" onclick="document.getElementById('m-file').click()" style="cursor:pointer;border:1px dashed rgba(201,168,76,0.35);background:rgba(255,255,255,0.02);padding:1.5rem 1rem;text-align:center;transition:all 0.25s;">
             <div class="file-drop-icon">📎</div>
             <div class="file-drop-text">Clicca per scegliere un file</div>
@@ -207,7 +209,5 @@
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script src="js/main.js"></script>
 </body>
 </html>
