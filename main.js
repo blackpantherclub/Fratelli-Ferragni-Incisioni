@@ -1,22 +1,10 @@
 /* ═══════════════════════════════════════════════════════
    Fratelli Terragni Incisioni — Script condiviso
-   ═══════════════════════════════════════════════════════
-
-   ⚠️  PRIMA DI ANDARE ONLINE: sostituisci i tre valori
-       qui sotto con quelli del tuo account EmailJS.
-       https://www.emailjs.com
    ═══════════════════════════════════════════════════════ */
 
-const EMAILJS_PUBLIC_KEY  = 'xRfdKtsteWPiFFkWR';   // Account → General → Public Key
-const EMAILJS_SERVICE_ID  = 'service_oxjy085';   // Email Services → Service ID
-const EMAILJS_TEMPLATE_ID = 'template_6bxasr3';  // Email Templates → Template ID
-
-/* ── Inizializza EmailJS ── */
-(function () {
-  if (typeof emailjs !== 'undefined') {
-    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-  }
-})();
+const EMAILJS_PUBLIC_KEY  = 'xRfdKtsteWPiFFkWR';
+const EMAILJS_SERVICE_ID  = 'service_oxjy085';
+const EMAILJS_TEMPLATE_ID = 'template_6bxasr3';
 
 /* ── Hamburger menu mobile ── */
 let menuOpen = false;
@@ -54,26 +42,25 @@ function closeModal() {
   const fileInfo = document.getElementById('mFileInfo');
   if (fileInfo) fileInfo.textContent = '';
   const fileDrop = document.getElementById('mFileDrop');
-  if (fileDrop) fileDrop.classList.remove('has-file');
+  if (fileDrop) { fileDrop.style.borderColor = 'rgba(201,168,76,0.35)'; fileDrop.style.borderStyle = 'dashed'; fileDrop.style.background = 'rgba(255,255,255,0.02)'; }
   showModalError('');
 }
 
 /* ── Gestione selezione file ── */
-function handleFileChange(inputId, infoId) {
-  const input = document.getElementById(inputId);
-  const info  = document.getElementById(infoId);
-  const label = input ? input.closest('label') : null;
+function handleFileChange() {
+  const input = document.getElementById('m-file');
+  const info  = document.getElementById('mFileInfo');
+  const drop  = document.getElementById('mFileDrop');
   if (!input || !input.files.length) return;
   const file = input.files[0];
   if (file.size > 5 * 1024 * 1024) {
-    showModalError('Il file supera i 5 MB. Scegli un file piu piccolo.');
+    showModalError('Il file supera i 5 MB. Scegli un file più piccolo.');
     input.value = '';
-    if (info)  info.textContent = '';
-    if (label) label.classList.remove('has-file');
+    if (info) info.textContent = '';
     return;
   }
-  if (info)  info.textContent = '\u2713 ' + file.name;
-  if (label) label.classList.add('has-file');
+  if (info) info.textContent = '✓ ' + file.name;
+  if (drop) { drop.style.borderColor = '#C9A84C'; drop.style.borderStyle = 'solid'; drop.style.background = 'rgba(201,168,76,0.07)'; }
   showModalError('');
 }
 
@@ -105,11 +92,11 @@ async function submitModal() {
   const quantita  = (document.getElementById('m-quantita')  || {}).value || '1';
   const fileInput = document.getElementById('m-file');
 
-  if (!nome.trim())  { showModalError('Inserisci il tuo nome.'); return; }
+  if (!nome.trim()) { showModalError('Inserisci il tuo nome.'); return; }
   if (!email.trim() || !email.includes('@')) { showModalError("Inserisci un'email valida."); return; }
 
   const btn = document.getElementById('mSubmitBtn');
-  if (btn) { btn.disabled = true; btn.textContent = 'Invio in corso\u2026'; }
+  if (btn) { btn.disabled = true; btn.textContent = 'Invio in corso…'; }
   showModalError('');
 
   try {
@@ -117,7 +104,7 @@ async function submitModal() {
       from_name    : nome,
       from_email   : email,
       prodotto     : prodotto,
-      testo        : testo || '\u2014',
+      testo        : testo || '—',
       materiale    : materiale,
       quantita     : quantita,
       allegato     : '',
@@ -138,9 +125,9 @@ async function submitModal() {
 
   } catch (err) {
     console.error('EmailJS error:', err);
-    showModalError('Invio fallito. Riprova o scrivici a incisioni-fratelli-terragni@proton.me');
+    showModalError('Invio fallito: ' + (err.text || err.message || JSON.stringify(err)));
   } finally {
-    if (btn) { btn.disabled = false; btn.textContent = 'Invia richiesta \u2192'; }
+    if (btn) { btn.disabled = false; btn.textContent = 'Invia richiesta →'; }
   }
 }
 
@@ -155,18 +142,20 @@ function faq(el) {
   el.parentElement.classList.toggle('open');
 }
 
-/* ── Chiudi modal cliccando overlay ── */
-document.addEventListener('DOMContentLoaded', function () {
+/* ── Init al caricamento pagina ── */
+window.addEventListener('load', function () {
+  // Inizializza EmailJS dopo che tutto è caricato
+  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
   setActiveNav();
 
   // Listener file input
   const fileInput = document.getElementById('m-file');
   if (fileInput) {
-    fileInput.addEventListener('change', function() {
-      handleFileChange('m-file', 'mFileInfo');
-    });
+    fileInput.addEventListener('change', handleFileChange);
   }
 
+  // Chiudi modal cliccando overlay
   const overlay = document.getElementById('orderModal');
   if (overlay) {
     overlay.addEventListener('click', function (e) {
