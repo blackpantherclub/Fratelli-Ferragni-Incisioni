@@ -187,13 +187,11 @@
           <div class="form-group"><label class="form-label">Quantità</label><input id="m-quantita" type="number" class="form-input" placeholder="1" min="1"></div>
         </div>
         <div class="form-group">
-          <label class="form-label">Allega file (immagine, disegno, logo…)</label>
-          <input id="m-file" type="file" accept="image/*,.pdf,.svg,.png,.jpg,.jpeg" style="display:none">
-          <div id="mFileDrop" onclick="document.getElementById('m-file').click()" style="cursor:pointer;border:1px dashed rgba(201,168,76,0.35);background:rgba(255,255,255,0.02);padding:1.5rem 1rem;text-align:center;transition:all 0.25s;">
-            <div class="file-drop-icon">📎</div>
-            <div class="file-drop-text">Clicca per scegliere un file</div>
-            <div class="file-drop-sub">PNG, JPG, SVG, PDF — max 5 MB</div>
-            <div class="file-drop-name" id="mFileInfo"></div>
+          <div style="border:1px solid rgba(201,168,76,0.25);background:rgba(201,168,76,0.04);padding:1rem 1.2rem;">
+            <div style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;">📎 Hai un file da allegare?</div>
+            <p style="font-size:0.82rem;color:var(--warm-mid);line-height:1.7;margin:0;">Invialo direttamente via:<br>
+            📧 <a href="mailto:incisioni-fratelli-terragni@outlook.it" style="color:var(--gold);">incisioni-fratelli-terragni@outlook.it</a><br>
+            💬 <a href="https://wa.me/393273313731" target="_blank" style="color:var(--gold);">WhatsApp +39 327 331 3731</a></p>
           </div>
         </div>
         <div id="mErrMsg" style="display:none;color:#e57373;font-size:0.78rem;margin-top:0.4rem;"></div>
