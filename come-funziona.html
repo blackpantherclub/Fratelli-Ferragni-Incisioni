@@ -137,32 +137,47 @@
     </footer>
   </div>
 
-  <div class="modal-overlay" id="orderModal">
+    <div class="modal-overlay" id="orderModal">
     <div class="modal">
       <button class="modal-close" onclick="closeModal()">✕</button>
       <div id="mFormWrap">
         <div class="modal-title">Richiedi un preventivo</div>
         <p class="modal-sub">Compila il modulo — ti risponderemo entro 24 ore</p>
         <div class="form-row">
-          <div class="form-group"><label class="form-label">Nome *</label><input type="text" class="form-input" placeholder="Il tuo nome"></div>
-          <div class="form-group"><label class="form-label">Email *</label><input type="email" class="form-input" placeholder="tua@email.it"></div>
+          <div class="form-group"><label class="form-label">Nome *</label><input id="m-nome" type="text" class="form-input" placeholder="Il tuo nome"></div>
+          <div class="form-group"><label class="form-label">Email *</label><input id="m-email" type="email" class="form-input" placeholder="tua@email.it"></div>
         </div>
-        <div class="form-group"><label class="form-label">Tipo di prodotto</label><select class="form-select"><option>Medaglione per animali</option><option>Medaglia commemorativa</option><option>Ciondolo personalizzato</option><option>Targa per oggetti</option><option>Regalo personalizzato</option><option>Fornitura aziendale</option><option>Altro</option></select></div>
-        <div class="form-group"><label class="form-label">Testo / descrizione</label><textarea class="form-textarea" placeholder="Es: «Luna · ☎ 333 123 4567»..."></textarea></div>
+        <div class="form-group">
+          <label class="form-label">Tipo di prodotto</label>
+          <select id="m-prodotto" class="form-select"><option>Medaglione per animali</option><option>Ciondolo personalizzato</option><option>Regalo personalizzato</option><option>Medaglia memorial</option><option>Altro</option></select>
+        </div>
+        <div class="form-group"><label class="form-label">Testo / descrizione</label><textarea id="m-testo" class="form-textarea" placeholder="Es: &laquo;Luna &middot; &#9742; 333 123 4567&raquo;..."></textarea></div>
         <div class="form-row">
-          <div class="form-group"><label class="form-label">Materiale</label><select class="form-select"><option>Legno</option><option>Acciaio inox</option><option>Pelle</option><option>Consigliami tu</option></select></div>
-          <div class="form-group"><label class="form-label">Quantità</label><input type="number" class="form-input" placeholder="1" min="1"></div>
+          <div class="form-group"><label class="form-label">Materiale</label><select id="m-materiale" class="form-select"><option>Legno</option><option>Acciaio inox</option><option>Pelle</option><option>Consigliami tu</option></select></div>
+          <div class="form-group"><label class="form-label">Quantit&agrave;</label><input id="m-quantita" type="number" class="form-input" placeholder="1" min="1"></div>
         </div>
-        <button class="btn-g" style="width:100%;margin-top:0.5rem;" onclick="submitModal()">Invia richiesta →</button>
+        <div class="form-group">
+          <label class="form-label">Allega file (immagine, disegno, logo&hellip;)</label>
+          <input id="m-file" type="file" accept="image/*,.pdf,.svg,.png,.jpg,.jpeg" style="display:none">
+          <div id="mFileDrop" onclick="document.getElementById('m-file').click()" style="cursor:pointer;border:1px dashed rgba(201,168,76,0.35);background:rgba(255,255,255,0.02);padding:1.5rem 1rem;text-align:center;transition:all 0.25s;">
+            <div class="file-drop-icon">&#128206;</div>
+            <div class="file-drop-text">Clicca per scegliere un file</div>
+            <div class="file-drop-sub">PNG, JPG, SVG, PDF &mdash; max 5 MB</div>
+            <div class="file-drop-name" id="mFileInfo"></div>
+          </div>
+        </div>
+        <div id="mErrMsg" style="display:none;color:#e57373;font-size:0.78rem;margin-top:0.4rem;"></div>
+        <button class="btn-g" id="mSubmitBtn" style="width:100%;margin-top:0.8rem;" onclick="submitModal()">Invia richiesta &rarr;</button>
       </div>
       <div class="success-box" id="mSuccess">
-        <div class="success-icon">✦</div>
+        <div class="success-icon">&#10022;</div>
         <div class="success-title">Richiesta inviata!</div>
-        <p class="success-body">Grazie! Ti risponderemo entro 24 ore con il tuo preventivo.<br>Controlla anche la cartella spam 🙂</p>
+        <p class="success-body">Grazie! Ti risponderemo entro 24 ore con il tuo preventivo.<br>Controlla anche la cartella spam &#128578;</p>
       </div>
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
