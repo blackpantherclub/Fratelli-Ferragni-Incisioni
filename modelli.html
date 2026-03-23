@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fratelli Terragni Incisioni — Modelli Medaglie</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .modelli-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2px;
+      background: rgba(201,168,76,0.07);
+      padding: 2px;
+      margin: 2rem 3rem 3rem;
+    }
+    .modello-card {
+      background: var(--ink);
+      display: flex;
+      flex-direction: column;
+      transition: background 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .modello-card:hover { background: var(--dark2); }
+    .modello-card:hover .modello-btn { opacity: 1; transform: translateY(0); }
+    .modello-img-wrap {
+      background: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem;
+      aspect-ratio: 1/1;
+    }
+    .modello-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: transform 0.4s;
+    }
+    .modello-card:hover .modello-img-wrap img { transform: scale(1.06); }
+    .modello-body {
+      padding: 1.8rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      flex: 1;
+    }
+    .modello-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .modello-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      color: var(--cream);
+      line-height: 1.3;
+    }
+    .modello-desc {
+      font-size: 0.8rem;
+      line-height: 1.8;
+      color: var(--warm-mid);
+      opacity: 0.75;
+    }
+    .modello-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(201,168,76,0.1);
+    }
+    .modello-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      color: var(--gold-light);
+    }
+    .modello-price-from {
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 0.1rem;
+      font-family: 'Jost', sans-serif;
+    }
+    .modello-delivery { font-size: 0.68rem; color: var(--warm-mid); opacity: 0.5; letter-spacing: 0.08em; }
+    .modello-btn {
+      display: block;
+      width: 100%;
+      background: var(--gold);
+      color: var(--ink);
+      border: none;
+      padding: 1rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-weight: 500;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.3s, transform 0.3s, background 0.2s;
+    }
+    .modello-btn:hover { background: var(--gold-light); }
+    @media (max-width: 900px) {
+      .modello-btn { opacity: 1; transform: translateY(0); }
+      .modelli-grid { margin: 2rem 1.5rem 3rem; }
+    }
+  </style>
+</head>
+<body data-page="modelli">
+
+  <nav>
+    <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="Fratelli Terragni Incisioni"></a>
+    <ul class="nav-links">
+      <li><a href="index.html"          data-p="home">Home</a></li>
+      <li><a href="modelli.html"        data-p="modelli">Modelli Medaglie</a></li>
+      <li><a href="prodotti.html"       data-p="prodotti">Prodotti</a></li>
+      <li><a href="materiali.html"      data-p="materiali">Materiali</a></li>
+      <li><a href="come-funziona.html"  data-p="come-funziona">Come funziona</a></li>
+      <li><a href="galleria.html"       data-p="galleria">Galleria</a></li>
+      <li><a href="contatti.html"       data-p="contatti">Contatti</a></li>
+      <li><a href="admin.html" data-p="admin" style="color:rgba(201,168,76,0.5);font-size:0.65rem;">⚙ Admin</a></li>
+      <li><a class="nav-cta" onclick="openModal()">Ordina ora</a></li>
+    </ul>
+    <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="mobile-menu" id="mobMenu">
+    <a href="index.html"         data-p="home">Home</a>
+    <a href="modelli.html"       data-p="modelli">Modelli Medaglie</a>
+    <a href="prodotti.html"      data-p="prodotti">Prodotti</a>
+    <a href="materiali.html"     data-p="materiali">Materiali</a>
+    <a href="come-funziona.html" data-p="come-funziona">Come funziona</a>
+    <a href="galleria.html"      data-p="galleria">Galleria</a>
+    <a href="contatti.html"      data-p="contatti">Contatti</a>
+    <a href="admin.html" data-p="admin" style="color:rgba(201,168,76,0.4);font-size:0.8rem;">⚙ Admin</a>
+    <a onclick="openModal();toggleMenu()" style="color:var(--gold)">✦ Ordina ora</a>
+  </div>
+
+  <div class="page-content">
+
+    <div class="page-header">
+      <span class="sec-label">✦ I nostri modelli</span>
+      <h1 class="sec-title">Modelli <em class="gold-i">Medaglie</em></h1>
+      <p class="sec-body">Scegli la forma che preferisci. Ogni modello è disponibile in legno, acciaio inox e pelle — inciso su misura con il tuo testo.</p>
+    </div>
+
+    <div class="modelli-grid">
+
+      <!-- TONDO GRANDE -->
+      <div class="modello-card">
+        <div class="modello-img-wrap">
+          <img src="images/TONDO_GRANDE.png" alt="Medaglione Tondo Grande">
+        </div>
+        <div class="modello-body">
+          <div class="modello-tags"><span class="tag">Tondo</span><span class="tag">Grande</span></div>
+          <div class="modello-name">Tondo Grande</div>
+          <p class="modello-desc">Formato grande ideale per cani di taglia media e grande. Ampio spazio per nome, numero di telefono e messaggio.</p>
+          <div class="modello-footer">
+            <div class="modello-price"><span class="modello-price-from">A partire da</span>€8</div>
+            <span class="modello-delivery">Consegna 3–5 gg</span>
+          </div>
+        </div>
+        <button class="modello-btn" onclick="openModal()">Richiedi preventivo</button>
+      </div>
+
+      <!-- RETTANGOLO -->
+      <div class="modello-card">
+        <div class="modello-img-wrap">
+          <img src="images/RETTANGOLO.png" alt="Medaglione Rettangolare">
+        </div>
+        <div class="modello-body">
+          <div class="modello-tags"><span class="tag">Rettangolo</span><span class="tag">Militare</span></div>
+          <div class="modello-name">Rettangolare</div>
+          <p class="modello-desc">Forma militare classica e robusta. Perfetta per testo su più righe, ideale per cani di taglia media e grande.</p>
+          <div class="modello-footer">
+            <div class="modello-price"><span class="modello-price-from">A partire da</span>€8</div>
+            <span class="modello-delivery">Consegna 3–5 gg</span>
+          </div>
+        </div>
+        <button class="modello-btn" onclick="openModal()">Richiedi preventivo</button>
+      </div>
+
+      <!-- TONDO -->
+      <div class="modello-card">
+        <div class="modello-img-wrap">
+          <img src="images/TONDO.png" alt="Medaglione Tondo">
+        </div>
+        <div class="modello-body">
+          <div class="modello-tags"><span class="tag">Tondo</span><span class="tag">Classico</span></div>
+          <div class="modello-name">Tondo Classico</div>
+          <p class="modello-desc">Il modello più amato. Elegante e discreto, adatto a cani e gatti di ogni taglia.</p>
+          <div class="modello-footer">
+            <div class="modello-price"><span class="modello-price-from">A partire da</span>€8</div>
+            <span class="modello-delivery">Consegna 3–5 gg</span>
+          </div>
+        </div>
+        <button class="modello-btn" onclick="openModal()">Richiedi preventivo</button>
+      </div>
+
+      <!-- CUORE -->
+      <div class="modello-card">
+        <div class="modello-img-wrap">
+          <img src="images/CUORE.png" alt="Medaglione a Cuore">
+        </div>
+        <div class="modello-body">
+          <div class="modello-tags"><span class="tag">Cuore</span><span class="tag">Regalo</span></div>
+          <div class="modello-name">A Cuore</div>
+          <p class="modello-desc">Forma romantica e originale. Perfetta come regalo o per i tuoi animali più amati.</p>
+          <div class="modello-footer">
+            <div class="modello-price"><span class="modello-price-from">A partire da</span>€8</div>
+            <span class="modello-delivery">Consegna 3–5 gg</span>
+          </div>
+        </div>
+        <button class="modello-btn" onclick="openModal()">Richiedi preventivo</button>
+      </div>
+
+    </div>
+
+    <section class="wrap" style="text-align:center;">
+      <h2 class="sec-title">Non trovi la forma che cerchi?</h2>
+      <p class="sec-body" style="margin:0 auto 2rem;">Realizziamo qualsiasi forma su richiesta. Scrivici e troviamo insieme la soluzione.</p>
+      <div class="btn-row" style="justify-content:center;">
+        <a class="btn-g" onclick="openModal()">Richiedi preventivo</a>
+        <a class="btn-o" href="contatti.html">Contattaci →</a>
+      </div>
+    </section>
+
+    <footer>
+      <div class="fg">
+        <div><div class="fb">Fratelli Terragni<br>Incisioni</div><p class="ft">Incisioni laser su misura su legno, acciaio inox e pelle.</p></div>
+        <div><p class="fc-title">Pagine</p><ul class="fl"><li><a href="index.html">Home</a></li><li><a href="modelli.html">Modelli Medaglie</a></li><li><a href="prodotti.html">Prodotti</a></li><li><a href="materiali.html">Materiali</a></li><li><a href="come-funziona.html">Come funziona</a></li><li><a href="galleria.html">Galleria</a></li></ul></div>
+        <div><p class="fc-title">Contatti</p><ul class="fl"><li><a href="mailto:incisioni-fratelli-terragni@outlook.it">incisioni-fratelli-terragni@outlook.it</a></li><li><a href="https://wa.me/393273313731">+39 327 331 3731</a></li></ul></div>
+        <div><p class="fc-title">Seguici</p><div class="sr" style="margin-top:0.5rem"><div class="sb">📸</div><div class="sb">📘</div></div></div>
+      </div>
+      <div class="fb-bottom"><p class="fc">© 2025 Fratelli Terragni Incisioni · Tutti i diritti riservati</p></div>
+    </footer>
+  </div>
+
+  <!-- MODAL PREVENTIVO -->
+  <div class="modal-overlay" id="orderModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div id="mFormWrap">
+        <div class="modal-title">Richiedi un preventivo</div>
+        <p class="modal-sub">Compila il modulo — ti risponderemo entro 24 ore</p>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Nome *</label><input id="m-nome" type="text" class="form-input" placeholder="Il tuo nome"></div>
+          <div class="form-group"><label class="form-label">Email *</label><input id="m-email" type="email" class="form-input" placeholder="tua@email.it"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Modello</label>
+          <select id="m-prodotto" class="form-select"><option>Tondo Grande</option><option>Rettangolare</option><option>Tondo Classico</option><option>A Cuore</option><option>Altro</option></select>
+        </div>
+        <div class="form-group"><label class="form-label">Testo / descrizione</label><textarea id="m-testo" class="form-textarea" placeholder="Es: «Luna · ☎ 333 123 4567»..."></textarea></div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Materiale</label><select id="m-materiale" class="form-select"><option>Legno</option><option>Acciaio inox</option><option>Pelle</option><option>Consigliami tu</option></select></div>
+          <div class="form-group"><label class="form-label">Quantità</label><input id="m-quantita" type="number" class="form-input" placeholder="1" min="1"></div>
+        </div>
+        <div class="form-group">
+          <div style="border:1px solid rgba(201,168,76,0.25);background:rgba(201,168,76,0.04);padding:1rem 1.2rem;">
+            <div style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;">📎 Hai un file da allegare?</div>
+            <p style="font-size:0.82rem;color:var(--warm-mid);line-height:1.7;margin:0;">Invialo direttamente via:<br>
+            📧 <a href="mailto:incisioni-fratelli-terragni@outlook.it" style="color:var(--gold);">incisioni-fratelli-terragni@outlook.it</a><br>
+            💬 <a href="https://wa.me/393273313731" target="_blank" style="color:var(--gold);">WhatsApp +39 327 331 3731</a></p>
+          </div>
+        </div>
+        <div id="mErrMsg" style="display:none;color:#e57373;font-size:0.78rem;margin-top:0.4rem;"></div>
+        <button class="btn-g" id="mSubmitBtn" style="width:100%;margin-top:0.8rem;" onclick="submitModal()">Invia richiesta →</button>
+      </div>
+      <div class="success-box" id="mSuccess">
+        <div class="success-icon">✦</div>
+        <div class="success-title">Richiesta inviata!</div>
+        <p class="success-body">Grazie! Ti risponderemo entro 24 ore con il tuo preventivo.<br>Controlla anche la cartella spam 🙂</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
