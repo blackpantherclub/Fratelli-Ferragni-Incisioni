@@ -188,15 +188,13 @@
         </div>
         <div class="form-group">
           <label class="form-label">Allega file (immagine, disegno, logo…)</label>
-          <label class="file-drop-label" id="mFileDrop">
-            <input id="m-file" type="file" accept="image/*,.pdf,.svg,.png,.jpg,.jpeg" style="display:none" onchange="handleFileChange('m-file','mFileInfo')">
-            <div class="file-drop-inner">
-              <div class="file-drop-icon">📎</div>
-              <div class="file-drop-text">Clicca per scegliere un file</div>
-              <div class="file-drop-sub">PNG, JPG, SVG, PDF — max 5 MB</div>
-              <div class="file-drop-name" id="mFileInfo"></div>
-            </div>
-          </label>
+          <input id="m-file" type="file" accept="image/*,.pdf,.svg,.png,.jpg,.jpeg" style="display:none" onchange="handleFileChange('m-file','mFileInfo')">
+          <div id="mFileDrop" onclick="document.getElementById('m-file').click()" style="cursor:pointer;border:1px dashed rgba(201,168,76,0.35);background:rgba(255,255,255,0.02);padding:1.5rem 1rem;text-align:center;transition:all 0.25s;">
+            <div class="file-drop-icon">📎</div>
+            <div class="file-drop-text">Clicca per scegliere un file</div>
+            <div class="file-drop-sub">PNG, JPG, SVG, PDF — max 5 MB</div>
+            <div class="file-drop-name" id="mFileInfo"></div>
+          </div>
         </div>
         <div id="mErrMsg" style="display:none;color:#e57373;font-size:0.78rem;margin-top:0.4rem;"></div>
         <button class="btn-g" id="mSubmitBtn" style="width:100%;margin-top:0.8rem;" onclick="submitModal()">Invia richiesta →</button>
