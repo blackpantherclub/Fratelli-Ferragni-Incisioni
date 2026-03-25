@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://incisioni-fratelli-terragni.it/sitemap.xml
